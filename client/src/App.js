@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import PayPal from './PayPal.js';
+import PayPal from './components/PayPal.js';
 
 
 export default function App() {
