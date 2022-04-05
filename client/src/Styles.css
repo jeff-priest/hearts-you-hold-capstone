@@ -1,0 +1,28 @@
+.listing {
+position: relative;
+display: flex;
+flex-flow: row wrap;
+justify-content: space-between;
+padding: 2em;
+background: #fff;
+width:70%;
+margin: auto;
+border-radius: 0.25em;
+box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.left {
+    width:60%
+}
+
+#readMoreBtn {
+    appearance: none;
+    background: none;
+    color: #4f779d;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 0.5em;
+    border:none;
+    display:inline;
+    padding:0px;
+}
