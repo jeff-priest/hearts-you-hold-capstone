@@ -26,14 +26,14 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
         });
     }, [currency, showSpinner]);
 
-
-    return (<>
+    return (
+        <>
             { (showSpinner && isPending) && <div className="spinner" /> }
             <PayPalButtons
                 style={style}
                 disabled={false}
                 forceReRender={[amount, currency, style]}
-                fundingSource={undefined}
+                fundingSource="paypal"
                 createOrder={(data, actions) => {
                     return actions.order
                         .create({
@@ -57,11 +57,41 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
                     });
                 }}
             />
+            <PayPalButtons
+                style={style}
+                disabled={false}
+                forceReRender={[amount, currency, style]}
+                fundingSource="card"
+                createOrder={(data, actions) => {
+                    return actions.order
+                        .create({
+                            purchase_units: [
+                                {
+                                    amount: {
+                                        currency_code: currency,
+                                        value: amount,
+                                    },
+                                },
+                            ],
+                        })
+                        .then((orderId) => {
+                            // Your code here after create the order
+                            return orderId;
+                        });
+                }}
+                onApprove={function (data, actions) {
+                    return actions.order.capture().then(function () {
+                        // Your code here after capture the order
+                    });
+                }}
+            />
+            
+
         </>
     );
 }
 
-export default function PayPal() {
+export default function App() {
 	return (
 		<div style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider

@@ -1,17 +1,23 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import PayPal from './PayPal.js'
+import PayPal from './PayPal.js';
 
-function App() {
+
+export default function App() {
   return (
-    <div>
+    <>
+    
+    <PayPal />   
       <div>
         <Routes>
           <Route path="/" element={< PayPal/>} />
         </Routes>
       </div>
-    </div>
-  );
+    </> 
+  ); 
+  
 }
 
-export default App;
+
+
+    
