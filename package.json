@@ -1,0 +1,26 @@
+{
+  "name": "hearts-you-hold-capstone",
+  "version": "1.0.0",
+  "description": "Hearts You Hold e-commerce solution",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeff-priest/hearts-you-hold-capstone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeff-priest/hearts-you-hold-capstone/issues"
+  },
+  "homepage": "https://github.com/jeff-priest/hearts-you-hold-capstone#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "react": "^18.0.0"
+  }
+}
