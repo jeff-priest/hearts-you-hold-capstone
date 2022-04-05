@@ -1,18 +1,23 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from './components/Home'
+import PayPal from './PayPal.js';
 
-function App() {
-  //FETCH DATA IN HERE? PASS TO COMPONENTS?
+
+export default function App() {
   return (
-    <div>
+    <>
+    
+    <PayPal />   
       <div>
         <Routes>
           <Route path="/" element={< Home/>} />
         </Routes>
       </div>
-    </div>
-  );
+    </> 
+  ); 
+  
 }
 
-export default App;
+
+
+    
