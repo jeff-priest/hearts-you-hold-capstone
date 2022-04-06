@@ -3,8 +3,10 @@ const express = require("express");
 const mongoose = require('mongoose')
 const cors = require('cors');
 const port = process.env.PORT || 8003;
+const host = process.env.PORT || 8003;
+const http = require("http");
+require ("dotenv").config();
 const app = express();
-
 
 app.use(cors());
 
@@ -43,7 +45,12 @@ app.get("/funded-requests", async (request, response) => {
 });
 
 
-app.listen(port, () => {
-    console.log('listening on port: ' + port) 
+
+
+
+app.listen(port, host, () => {
+    console.log('listening on port: ' + port + ' and host: ' +  host ) 
   })
+
+  
 

@@ -1,9 +1,7 @@
-//branches test 
-// ryans branch 
-
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import PayPal from "./components/PayPal.js";
+import Mail from "./components/mail.js";
 import Home from "./components/Home.js"
 
 export default function App() {
@@ -65,7 +63,6 @@ export default function App() {
 
   return (
     <>
-      <PayPal />
       <div>
         <Routes>
           <Route path="/" element={<Home
@@ -73,6 +70,8 @@ export default function App() {
            />} />
         </Routes>
       </div>
+      <PayPal />
+      <Mail />
     </>
   );
 }
