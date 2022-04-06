@@ -75,6 +75,12 @@ export default function App() {
     setNotFunded(clickedItem);
   }
 
+  let shoppingCartItem = notFunded.filter((item) => {
+    return item.inShoppingCart === true
+  })
+
+  console.log(shoppingCartItem);
+
   //mapping over array of notFunded items to create list items for each card instances
   const donationItemsCardList = notFunded.map((donationItemCard, index) => {
     //this variable is a placeholder idea for limiting the description size
@@ -164,11 +170,6 @@ export default function App() {
       </li>
     );
 
-    // assign description to a variable
-    // count string length
-    // run function off string length
-
-    return donationItemsCardList;
   });
 
   return (
@@ -181,7 +182,7 @@ export default function App() {
             element={
               <Home
                 donationItemsCardList={donationItemsCardList}
-                //  cartButtons={cartButtons}
+                shoppingCartItem={shoppingCartItem}
               />
             }
           />

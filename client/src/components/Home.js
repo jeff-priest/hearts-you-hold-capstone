@@ -1,10 +1,16 @@
 import React from "react"
 import PayPal from './PayPal.js'
 import Requests from './Requests.js'
+import ShoppingCart from "./ShoppingCart.js";
 import '../Styles.css'
+
+
 
 export default function Home (props) {
 
+    let shoppingCartItem = props.shoppingCartItem
+
+    console.log(shoppingCartItem);
 
     return (
         <>
@@ -16,6 +22,10 @@ export default function Home (props) {
         { /* Link to funded requests */}
         {/* sort by oldest/newest, state, category */}
         <Requests />
+
+        <ShoppingCart
+        shoppingCartItem={shoppingCartItem}
+        />
 
         <PayPal />
         </>
