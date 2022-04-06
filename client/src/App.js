@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import PayPal from "./components/PayPal.js";
+import Home from "./components/Home.js"
 
 export default function App() {
 
@@ -12,7 +13,7 @@ export default function App() {
     let isConnectedToServer = true;
 
     async function getData() {
-      let response = await fetch(`http://localhost:8003/requests`);
+      let response = await fetch(`http://localhost:8003/`);
 
       response = await response.json();
 
@@ -41,16 +42,16 @@ export default function App() {
         <div className="listing">
           {/* contents for left side of item card*/}
           <section className="left">
-            <h2>donationItemCard.itemName</h2>
-            <p>donationItemCard.donationDescription</p>
+            <h2>{donationItemCard.itemName}</h2>
+            <p>{donationItemCard.donationDescription}</p>
             <button>Add to cart</button>
           </section>
 
           {/* contents for right side of item card*/}
           <section className="right">
-            <p>donationItemCard.itemPrice</p>
-            <h4>donationItemCard.recipientName</h4>
-            <div>{`${donationItemCard.USLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
+            <p>{`$${donationItemCard.itemPrice}`}</p>
+            <h4>{donationItemCard.recipientName}</h4>
+            <div>{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
           </section>
         </div>
       </li>
@@ -64,7 +65,9 @@ export default function App() {
       <PayPal />
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home
+           donationItemsCardList={donationItemsCardList}
+           />} />
         </Routes>
       </div>
     </>

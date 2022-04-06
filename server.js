@@ -23,7 +23,7 @@ const Request = mongoose.model('RequestItem', requestSchema);
 
 
 //creating API route for the front end to access ALL NOT FUNDED entries from the database
-app.get("/requests", async (req, res) => {
+app.get("/", async (request, response) => {
     //assigning the result of a find on our Model to a variable
     let notFunded = await Request.find ({isFunded: false})
     // logging all requestItems 
@@ -33,7 +33,7 @@ app.get("/requests", async (req, res) => {
 });
 
 //creating API route for the front end to access ALL FUNDED entries from the database
-app.get("/funded-requests", async (req, res) => {
+app.get("/funded-requests", async (request, response) => {
     //assigning the result of a find on our Model to a variable
     let isFunded = await Request.find ({isFunded: true})
     // logging all requestItems 
