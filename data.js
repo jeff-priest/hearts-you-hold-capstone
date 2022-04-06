@@ -12,11 +12,15 @@ db.on("error", console.error.bind("connection error"));
 
 const requestSchema = new mongoose.Schema({
 
-   item: String,
-   name: String,
-   price: Number,
-   date: Date,
-   blurb: String,
+   itemName: String,
+   itemPrice: Number,
+   donationDescription: String,
+   isFunded: Boolean,
+   recipientName: String,
+   recipientUSLocation: String,
+   recipientHomeOrigin: String,
+   dateCreated: Date,
+
 
 })
 
