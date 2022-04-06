@@ -26,7 +26,7 @@ const CustomForm = ({ status, message, onValidated }) => {
       });
   };
 
-//   clears form if past form was successful 
+//  clears form if past form was successful 
   useEffect(() => {
     if (status === "success") clearFields();
     if (modalOpen && status === "success") clearFields();
@@ -37,6 +37,20 @@ const CustomForm = ({ status, message, onValidated }) => {
     setLastName("");
     setEmail("");
   };
+
+  function handleFirstName (e) {
+    setFirstName( e.target.value)
+    console.log(e.target.value)
+  }
+  function handleLastName (e) {
+    setLastName( e.target.value)
+    console.log(e.target.value)
+  }
+  function handleEmail (e) {
+    setEmail( e.target.value)
+    console.log(e.target.value)
+  }
+ 
 
   return (
     <form className="form" onSubmit={(e) => handleSubmit(e)}>
@@ -64,33 +78,31 @@ const CustomForm = ({ status, message, onValidated }) => {
         />
       )}
       {status !== "success" ? (
-        // inputs for first name, last name and email
-        <div className="inputBoxes">
+        <div>
+         {/* inputs for first name, last name and email */}
           <input
-            onChangeHandler={setFirstName}
+            onChange={handleFirstName}
             type="text"
-            value={firstName}
+            defaultValue={firstName}
             placeholder="First Name"
             isRequired
-          />
-
+          /> 
           <input
-            label="Last Name"
-            onChangeHandler={setLastName}
+            onChange={handleLastName}
             type="text"
-            value={lastName}
+            defaultValue={lastName}
             placeholder="Last Name"
             isRequired
-          />
-
+          /> 
           <input
-            label="Email"
-            onChangeHandler={setEmail}
-            type="email"
-            value={email}
-            placeholder="your@email.com"
+            onChange={handleEmail}
+            type="text"
+            defaultValue={email}
+            placeholder="Email"
             isRequired
-          />
+          /> 
+
+          
         </div>
       ) : null}
 
