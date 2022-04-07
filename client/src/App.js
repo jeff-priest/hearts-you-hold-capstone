@@ -8,6 +8,7 @@ import Home from "./components/Home.js"
 export default function App() {
   //state holding json isFunded = false list
   const [notFunded, setNotFunded] = useState([]);
+  const [isFunded, setIsFunded] = useState([]);
 
   //fetching isFunded = false items from DB
   useEffect(() => {
@@ -18,16 +19,22 @@ export default function App() {
 
       response = await response.json();
 
+      let notFundedVariable = response[0]
+
+      let fundedVariable = response[1]
+
       //mapping over response object to add inShoppingCart = false - key-value
-      response = response.map((responseObject, index) => {
-        return (response = {
-          ...responseObject,
+      notFundedVariable = notFundedVariable.map((notFundedObject, index) => {
+        return (notFundedVariable = {
+          ...notFundedObject,
           inShoppingCart: false,
           readMoreOpen: false,
         });
       });
       //setting response to notFunded state
-      setNotFunded(response);
+      setNotFunded(notFundedVariable);
+
+      setIsFunded(fundedVariable)
     }
 
     if (isConnectedToServer) {
@@ -74,10 +81,6 @@ export default function App() {
     });
     setNotFunded(clickedItem);
   }
-
-  let shoppingCartItem = notFunded.filter((item) => {
-    return item.inShoppingCart === true;
-  });
 
   let viewedDescription = null
 
@@ -214,7 +217,8 @@ export default function App() {
             element={
               <Home
                 donationItemsCardList={donationItemsCardList}
-                shoppingCartItem={shoppingCartItem}
+                notFunded={notFunded}
+                setNotFunded={setNotFunded}
               />
             }
           />

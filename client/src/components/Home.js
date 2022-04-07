@@ -8,10 +8,6 @@ import '../Styles.css'
 
 export default function Home (props) {
 
-    let shoppingCartItem = props.shoppingCartItem
-
-    console.log(shoppingCartItem);
-
     return (
         <>
         <h1>Requests - Organizations & Individual</h1>
@@ -22,7 +18,8 @@ export default function Home (props) {
 
 
         <ShoppingCart
-        shoppingCartItem={shoppingCartItem}
+        notFunded={props.notFunded}
+        setNotFunded={props.setNotFunded}
         />
 
         {/* <PayPal /> */}
