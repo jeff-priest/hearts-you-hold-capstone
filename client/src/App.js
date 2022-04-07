@@ -1,8 +1,9 @@
-//branches test
 
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./components/Home.js";
+import PayPal from "./components/PayPal.js";
+import Mail from "./components/mail.js";
+import Home from "./components/Home.js"
 
 export default function App() {
   //state holding json isFunded = false list
@@ -219,6 +220,8 @@ export default function App() {
           />
         </Routes>
       </div>
+      <PayPal />
+      <Mail />
     </>
   );
 }
