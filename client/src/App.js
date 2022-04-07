@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import PayPal from "./components/PayPal.js";
 import Home from "./components/Home.js";
 
 export default function App() {
@@ -76,15 +75,46 @@ export default function App() {
   }
 
   let shoppingCartItem = notFunded.filter((item) => {
-    return item.inShoppingCart === true
-  })
+    return item.inShoppingCart === true;
+  });
 
-  console.log(shoppingCartItem);
+  let viewedDescription = null
+
+  function descriptionSlice(itemDescription) {
+
+    //if the description is less than 20 characters, show the whole description
+    if (itemDescription.length < 20) {
+      viewedDescription = itemDescription;
+      return viewedDescription;
+
+      //if it is over 20
+    } else {
+      for (let i = 20; i <= itemDescription.length; i++) {
+        let character = itemDescription.charAt(i);
+
+        //for a description that is over 20 characters but doesn't have a space between 20 and its total length
+        if (i === itemDescription.length) {
+          viewedDescription = itemDescription;
+          return viewedDescription;
+
+          //when the loop finds the first space it slices the description
+        } else if (character === " ") {
+          viewedDescription = itemDescription.slice(0, i);
+          return viewedDescription;
+
+          //if it's not a space it adds one to it and runs again
+        } else if (character !== " ") {
+          i++;
+        }
+      }
+    }
+  }
 
   //mapping over array of notFunded items to create list items for each card instances
   const donationItemsCardList = notFunded.map((donationItemCard, index) => {
     //this variable is a placeholder idea for limiting the description size
-    let viewedDescription = donationItemCard.donationDescription.slice(0, 15);
+
+    descriptionSlice(donationItemCard.donationDescription);
 
     //variable for if readMoreOpen = true
     let readLessDescription = (
@@ -102,15 +132,18 @@ export default function App() {
 
     //variable for if readMoreOpen = false
     let readMoreDescription = (
-      <>
-        {viewedDescription}
+      //if the description is over 20 characters show the read more button
+      <>{viewedDescription.length > 20 ? 
+        <>{viewedDescription}
         <button
           onClick={(event) => {
             openReadMore(event, donationItemCard._id);
           }}
         >
-          Read More
-        </button>
+          ...Read More
+        </button></> : 
+        //if the description is under 20 characters just show the description without a read more button
+        <>{viewedDescription}</>}
       </>
     );
 
@@ -162,19 +195,17 @@ export default function App() {
 
           {/* contents for right side of item card*/}
           <section className="right">
-            <p>{`${donationItemCard.itemPrice}`}</p>
+            <p>{`$${donationItemCard.itemPrice}`}</p>
             <h4>{donationItemCard.recipientName}</h4>
             <div>{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
           </section>
         </div>
       </li>
     );
-
   });
 
   return (
     <>
-      <PayPal />
       <div>
         <Routes>
           <Route
