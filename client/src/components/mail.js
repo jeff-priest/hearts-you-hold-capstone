@@ -1,3 +1,7 @@
+//branch test 
+
+
+
 // referred this this website for mailChimp code -> "https://dev.to/gedalyakrycer/create-an-email-list-with-react-mailchimp-965"
 
 import React, { useState, useEffect } from "react";
@@ -85,21 +89,17 @@ const CustomForm = ({ status, message, onValidated }) => {
             type="text"
             defaultValue={firstName}
             placeholder="First Name"
-            isRequired
           /> 
           <input
             onChange={handleLastName}
             type="text"
             defaultValue={lastName}
-            placeholder="Last Name"
-            isRequired
           /> 
           <input
             onChange={handleEmail}
             type="text"
             defaultValue={email}
             placeholder="Email"
-            isRequired
           /> 
 
           
@@ -120,7 +120,7 @@ const CustomForm = ({ status, message, onValidated }) => {
         <input
           label="subscribe"
           type="submit"
-          formValues={[email, firstName, lastName]}
+          formvalues={[email, firstName, lastName]}
         />
       )}
     </form>
