@@ -2,8 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import PayPal from "./components/PayPal.js";
-import Mail from "./components/mail.js";
+import Mail from "./components/Mail.js";
 import Home from "./components/Home.js"
+
+import "./normalizer.css"
+import "./Styles.css"
 
 export default function App() {
   //state holding json isFunded = false list
@@ -124,7 +127,7 @@ export default function App() {
     let readLessDescription = (
       <>
         {donationItemCard.donationDescription}
-        <button
+        <button className="readMoreBtn"
           onClick={(event) => {
             closeReadMore(event, donationItemCard._id);
           }}
@@ -139,7 +142,7 @@ export default function App() {
       //if the description is over 20 characters show the read more button
       <>{viewedDescription.length > 20 ? 
         <>{viewedDescription}
-        <button
+        <button className="readMoreBtn"
           onClick={(event) => {
             openReadMore(event, donationItemCard._id);
           }}
@@ -155,13 +158,13 @@ export default function App() {
     let inCartButton = (
       <>
         <button
-          className="AddToCart"
+          className="addedToCart"
           disabled={true}
           onClick={(event) => {
             addToCart(event, donationItemCard._id);
           }}
         >
-          Added to cart
+          Added To Donation
         </button>
       </>
     );
@@ -170,13 +173,13 @@ export default function App() {
     let notInCartButton = (
       <>
         <button
-          className="AddToCart"
+          className="addToCart"
           disabled={false}
           onClick={(event) => {
             addToCart(event, donationItemCard._id);
           }}
         >
-          Add to cart
+          Donate
         </button>
       </>
     );
@@ -210,7 +213,7 @@ export default function App() {
 
   return (
     <>
-      <div>
+      <div id="body">
         <Routes>
           <Route
             path="/"
@@ -224,8 +227,6 @@ export default function App() {
           />
         </Routes>
       </div>
-      <PayPal />
-      <Mail />
     </>
   );
 }

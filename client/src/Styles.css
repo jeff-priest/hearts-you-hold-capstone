@@ -1,28 +1,133 @@
+#body {
+  font-size: 62.5%;
+  margin: auto;
+  height: 100vh;
+  font-family: "Nunito", sans-serif;
+  background: #F6F9FC;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .listing {
-position: relative;
-display: flex;
-flex-flow: row wrap;
-justify-content: space-between;
-padding: 2em;
-background: #fff;
-width:70%;
-margin: auto;
-border-radius: 0.25em;
-box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  background: #ffffff;
+  width: 80%;
+  margin: 1.6rem auto 1.6rem auto;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
 }
 
 .left {
-    width:60%
+  width: 60%;
 }
 
-#readMoreBtn {
-    appearance: none;
-    background: none;
-    color: #4f779d;
-    cursor: pointer;
-    font-weight: 600;
-    margin-left: 0.5em;
-    border:none;
-    display:inline;
-    padding:0px;
+.readMoreBtn {
+  background: none;
+  color: #4f779d;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 0.4rem;
+  border: none;
+  display: inline;
+  padding: 0;
+}
+
+.addToCart {
+  background: #cc6072;
+  color: #ffffff;
+  font-size: 0.8rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.4rem;
+  border: none;
+  height: 100%;
+}
+
+.addToCart:hover {
+  background: #4f779d;
+}
+
+.addedToCart {
+  background: #4f779d;
+  color: #ffffff;
+  font-size: 0.8rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.4rem;
+  border: none;
+  height: 100%;
+}
+
+.shoppingCartButton {
+  background: #4f779d;
+  color: #ffffff;
+  font-size: 0.8rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.4rem;
+  border: none;
+  margin: auto auto 1.6rem auto;
+}
+
+.shoppingCartButton:hover {
+  background: #cc6072;
+}
+
+.shoppingCartItem {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  background: #ffffff;
+  margin: 1.6rem auto 1.6rem auto;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.shoppingCartHeader {
+  font-size: 2.1rem;
+  width: 100%;
+  text-align: center;
+  padding-bottom: .8rem;
+}
+
+.shoppingCart {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  width: 100%;
+  margin: 1.6rem auto 1.6rem auto;
+  /* border-radius: 0.4rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%); */
+}
+
+.donationTotal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.6rem 0 1.6rem 0;
+    font-size: 1.6rem;
+}
+
+.itemName {
+    /* border: 2px solid purple; */
+    width: 50%;
+    text-align: center;
+    padding: .8rem 0 .8rem 0;
+    font-size: 1.2rem;
+}
+
+.itemPrice {
+    /* border: 2px solid green; */
+    width: 50%;
+    text-align: center;
+    padding: .8rem 0 .8rem 0;
+    font-size: 1.2rem;
+}
+
+.namePriceContainer {
+    display: flex;
 }
