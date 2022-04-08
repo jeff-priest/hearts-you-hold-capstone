@@ -1,0 +1,39 @@
+/* hero section */
+.heroContainer {
+    background: #ffffff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.heroHeader {
+    font-size: 2.1rem;
+    width: 100%;
+    text-align: center;
+    padding: 1.2rem;
+    margin: 0;
+}
+  
+.heroText {
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 2.1rem;
+}
+  
+.totalFunded {
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1.2rem 0 0 0;
+    font-size: 1.2rem;
+    margin: auto;
+    line-height: 2.1rem;
+}
+
+.fundedLink {
+    color: #cc6072;
+}

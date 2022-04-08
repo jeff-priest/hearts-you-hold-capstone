@@ -24,29 +24,17 @@ const { response } = require("express");
 const Request = mongoose.model('RequestItem', requestSchema);
 
 
-//creating API route for the front end to access ALL NOT FUNDED entries from the database
+//getting data and filtering it based on isFunded value and sending it in response as an array for client state
 app.get("/", async (request, response) => {
-    //assigning the result of a find on our Model to a variable
+
     let notFunded = await Request.find ({isFunded: false})
-    // logging all requestItems 
-    console.log(notFunded)
 
-    response.json(notFunded)
-});
-
-//creating API route for the front end to access ALL FUNDED entries from the database
-app.get("/funded-requests", async (request, response) => {
-    //assigning the result of a find on our Model to a variable
     let isFunded = await Request.find ({isFunded: true})
-    // logging all requestItems 
-    console.log(isFunded)
 
-    response.json(isFunded)
+    let fundedArray = [notFunded, isFunded]
+
+    response.json(fundedArray)
 });
-
-
-
-
 
 app.listen(port, host, () => {
     console.log('listening on port: ' + port + ' and host: ' +  host ) 

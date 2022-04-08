@@ -1,28 +1,133 @@
-.listing {
-position: relative;
-display: flex;
-flex-flow: row wrap;
-justify-content: space-between;
-padding: 2em;
-background: #fff;
-width:70%;
-margin: auto;
-border-radius: 0.25em;
-box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+/* universal styles */
+@keyframes pageLoad {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }
 
-.left {
-    width:60%
+#body {
+  font-size: 62.5%;
+  margin: auto;
+  font-family: "Nunito", sans-serif;
+  background: #f6f9fc;
+  color: #333;
+  animation: .3s ease-in pageLoad;
 }
 
-#readMoreBtn {
-    appearance: none;
-    background: none;
-    color: #4f779d;
-    cursor: pointer;
-    font-weight: 600;
-    margin-left: 0.5em;
-    border:none;
-    display:inline;
-    padding:0px;
+
+/* donation card for requested items */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.donationCard {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: #ffffff;
+  width: 90%;
+  margin: 1.6rem auto 1.6rem auto;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.cardNameDescription {
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.cardName {
+  margin: 0;
+}
+
+.cardDescriptionText {
+  font-size: 1rem;
+  padding: 0.8rem 0 0.8rem 0;
+  line-height: 1.6rem;
+}
+
+.cardPriceReceipientLocation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.cardItemPrice {
+  font-size: 2.1rem;
+  margin: 0;
+}
+
+.cardRecipientName {
+  font-size: 1.2rem;
+  margin: 0.2rem 0 0.2rem 0;
+}
+
+.cardLocation {
+  font-size: 0.8rem;
+  margin: 0.2rem 0 0.2rem 0;
+}
+
+.readMoreBtn {
+  background: none;
+  color: #4f779d;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 0.4rem;
+  border: none;
+  display: inline;
+  padding: 0;
+}
+
+.addToDonation {
+  background: #cc6072;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+.addToDonation:hover {
+  background: #4f779d;
+}
+
+.addedToDonation {
+  background: #4f779d;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 0.3rem;
+  border: none;
+  height: 100%;
+}
+
+.cardRecipientContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/* jump to non-mobile view */
+@media screen and (min-width: 640px) {
+
+.donationCard {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cardNameDescription {
+  width: 70%;
+}
+
+.cardPriceReceipientLocation {
+  width: 30%;
+}
+
 }
