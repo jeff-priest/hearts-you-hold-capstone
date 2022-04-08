@@ -1,30 +1,76 @@
+/* universal styles */
+@keyframes pageLoad {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 #body {
   font-size: 62.5%;
   margin: auto;
-  height: 100vh;
   font-family: "Nunito", sans-serif;
-  background: #F6F9FC;
+  background: #f6f9fc;
+  color: #333;
+  animation: .3s ease-in pageLoad;
 }
 
+
+/* donation card for requested items */
 ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.listing {
+.donationCard {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 2rem;
   background: #ffffff;
-  width: 80%;
+  width: 90%;
   margin: 1.6rem auto 1.6rem auto;
   border-radius: 0.4rem;
   box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
 }
 
-.left {
-  width: 60%;
+.cardNameDescription {
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.cardName {
+  margin: 0;
+}
+
+.cardDescriptionText {
+  font-size: 1rem;
+  padding: 0.8rem 0 0.8rem 0;
+  line-height: 1.6rem;
+}
+
+.cardPriceReceipientLocation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.cardItemPrice {
+  font-size: 2.1rem;
+  margin: 0;
+}
+
+.cardRecipientName {
+  font-size: 1.2rem;
+  margin: 0.2rem 0 0.2rem 0;
+}
+
+.cardLocation {
+  font-size: 0.8rem;
+  margin: 0.2rem 0 0.2rem 0;
 }
 
 .readMoreBtn {
@@ -38,96 +84,50 @@ ul {
   padding: 0;
 }
 
-.addToCart {
+.addToDonation {
   background: #cc6072;
   color: #ffffff;
-  font-size: 0.8rem;
-  padding: 1.2rem 1.6rem;
-  border-radius: 0.4rem;
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+.addToDonation:hover {
+  background: #4f779d;
+}
+
+.addedToDonation {
+  background: #4f779d;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 0.3rem;
   border: none;
   height: 100%;
 }
 
-.addToCart:hover {
-  background: #4f779d;
-}
-
-.addedToCart {
-  background: #4f779d;
-  color: #ffffff;
-  font-size: 0.8rem;
-  padding: 1.2rem 1.6rem;
-  border-radius: 0.4rem;
-  border: none;
-  height: 100%;
-}
-
-.shoppingCartButton {
-  background: #4f779d;
-  color: #ffffff;
-  font-size: 0.8rem;
-  padding: 0.8rem 1.2rem;
-  border-radius: 0.4rem;
-  border: none;
-  margin: auto auto 1.6rem auto;
-}
-
-.shoppingCartButton:hover {
-  background: #cc6072;
-}
-
-.shoppingCartItem {
+.cardRecipientContainer {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  background: #ffffff;
-  margin: 1.6rem auto 1.6rem auto;
-  border-radius: 0.4rem;
-  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
-.shoppingCartHeader {
-  font-size: 2.1rem;
-  width: 100%;
-  text-align: center;
-  padding-bottom: .8rem;
+/* jump to non-mobile view */
+@media screen and (min-width: 640px) {
+
+.donationCard {
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.shoppingCart {
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  width: 100%;
-  margin: 1.6rem auto 1.6rem auto;
-  /* border-radius: 0.4rem;
-  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%); */
+.cardNameDescription {
+  width: 70%;
 }
 
-.donationTotal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 1.6rem 0 1.6rem 0;
-    font-size: 1.6rem;
+.cardPriceReceipientLocation {
+  width: 30%;
 }
 
-.itemName {
-    /* border: 2px solid purple; */
-    width: 50%;
-    text-align: center;
-    padding: .8rem 0 .8rem 0;
-    font-size: 1.2rem;
-}
-
-.itemPrice {
-    /* border: 2px solid green; */
-    width: 50%;
-    text-align: center;
-    padding: .8rem 0 .8rem 0;
-    font-size: 1.2rem;
-}
-
-.namePriceContainer {
-    display: flex;
 }

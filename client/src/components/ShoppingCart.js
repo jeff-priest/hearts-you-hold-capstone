@@ -1,6 +1,7 @@
 import React from "react";
 import PayPal from "./PayPal.js";
 import Mail from "./Mail.js";
+import "./styles/shoppingCart.css"
 
 
 export default function ShoppingCart(props) {

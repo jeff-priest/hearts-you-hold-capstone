@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import PayPal from "./components/PayPal.js";
-import Mail from "./components/Mail.js";
+import Funded from "./components/Funded.js";
 import Home from "./components/Home.js"
 
 import "./normalizer.css"
-import "./Styles.css"
+import "./styles.css"
 
 export default function App() {
   //state holding json isFunded = false list
@@ -147,7 +147,7 @@ export default function App() {
             openReadMore(event, donationItemCard._id);
           }}
         >
-          ...Read More
+          Read More...
         </button></> : 
         //if the description is under 20 characters just show the description without a read more button
         <>{viewedDescription}</>}
@@ -158,7 +158,7 @@ export default function App() {
     let inCartButton = (
       <>
         <button
-          className="addedToCart"
+          className="addedToDonation"
           disabled={true}
           onClick={(event) => {
             addToCart(event, donationItemCard._id);
@@ -173,7 +173,7 @@ export default function App() {
     let notInCartButton = (
       <>
         <button
-          className="addToCart"
+          className="addToDonation"
           disabled={false}
           onClick={(event) => {
             addToCart(event, donationItemCard._id);
@@ -187,24 +187,32 @@ export default function App() {
     return (
       //creating unique key for each li
       <li key={`donationItemCard-${index}`}>
-        <div className="listing">
-          {donationItemCard.inShoppingCart ? inCartButton : notInCartButton}
-
-          {/* {addToCartClicked && cartButtons} */}
+        <div className="donationCard">
 
           {/* contents for left side of item card*/}
-          <section className="left">
-            <h2>{donationItemCard.itemName}</h2>
-            {donationItemCard.readMoreOpen
+          <section className="cardNameDescription">
+            <h2 className="cardName">{donationItemCard.itemName}</h2>
+            <div className="cardDescriptionText">{donationItemCard.readMoreOpen
               ? readLessDescription
-              : readMoreDescription}
+              : readMoreDescription}</div>
+
+          <div className="donateButtonContainer">
+          {donationItemCard.inShoppingCart ? inCartButton : notInCartButton}
+          </div>
           </section>
 
+
           {/* contents for right side of item card*/}
-          <section className="right">
-            <p>{`$${donationItemCard.itemPrice}`}</p>
-            <h4>{donationItemCard.recipientName}</h4>
-            <div>{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
+          <section className="cardPriceReceipientLocation">
+
+            <div className="cardItemPriceContainer">
+            <h2 className="cardItemPrice">{`$${donationItemCard.itemPrice}`}</h2>
+            </div>
+
+            <div className="cardRecipientContainer">    
+            <h4 className="cardRecipientName">{donationItemCard.recipientName}</h4>
+            <div className="cardLocation">{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
+            </div>
           </section>
         </div>
       </li>
@@ -222,6 +230,16 @@ export default function App() {
                 donationItemsCardList={donationItemsCardList}
                 notFunded={notFunded}
                 setNotFunded={setNotFunded}
+                isFunded={isFunded}
+              />
+            }
+          />
+          <Route
+            path="/Funded"
+            element={
+              <Funded
+              isFunded={isFunded}
+              donationItemsCardList={donationItemsCardList}
               />
             }
           />
