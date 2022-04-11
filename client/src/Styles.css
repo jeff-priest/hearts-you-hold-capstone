@@ -91,6 +91,7 @@ ul {
   padding: 1rem 1.2rem;
   border-radius: 0.3rem;
   border: none;
+  cursor: pointer;
 }
 
 .addToDonation:hover {
