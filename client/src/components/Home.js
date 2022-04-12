@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
 import ShoppingCart from "./ShoppingCart.js";
 import NotFundedPagination from "./NotFundedPagination.js";
+import PayPal from "./PayPal.js";
 import ScrollToTop from "./ScrollToTop.js";
 import "./styles/home.css";
 import Hearts from "./assets/hearts.png";
@@ -9,13 +10,19 @@ import Hearts from "./assets/hearts.png";
 export default function Home(props) {
   const [shoppingCartIsOpen, setShoppingCartIsOpen] = useState(false);
   const [showShoppingCartButton, setShowShoppingCartButton] = useState(false);
+  const [totalDonation, setTotalDonation] = useState(0);
+  const [payPalOpen, setPayPalOpen] = useState(false);
 
 
   let isFunded = props.isFunded;
 
+  let setIsFunded = props.setIsFunded;
+
   let totalFunded = isFunded.length;
 
   let notFunded = props.notFunded;
+
+  let setNotFunded = props.setNotFunded
 
   let openShoppingCart = () => {
     setShoppingCartIsOpen(true);
@@ -34,6 +41,10 @@ export default function Home(props) {
     return
 
   }, []);
+
+  useEffect(() => {
+    setPayPalOpen(false)
+  }, [notFunded])
 
   return (
     <>
@@ -85,8 +96,19 @@ export default function Home(props) {
           setNotFunded={props.setNotFunded}
           setShowShoppingCartButton={setShowShoppingCartButton}
           setShoppingCartIsOpen={setShoppingCartIsOpen}
+          totalDonation={totalDonation}
+          setTotalDonation={setTotalDonation}
+          setPayPalOpen={setPayPalOpen}
         />
       )}
+
+{ payPalOpen && <PayPal
+  totalDonation={totalDonation} 
+  notFunded={notFunded}
+  setNotFunded={setNotFunded}
+  setIsFunded={setIsFunded}
+  isFunded={isFunded}
+  /> }
       </div>
     </>
   );

@@ -1,7 +1,3 @@
-//branch test 
-
-
-
 // referred this this website for mailChimp code -> "https://dev.to/gedalyakrycer/create-an-email-list-with-react-mailchimp-965"
 
 import React, { useState, useEffect } from "react";
@@ -129,7 +125,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 // component to hold Mailchimp Form
 const MailchimpFormContainer = (props) => {
 // Url for the form from Mailchimp
-  const postUrl = `https://heartsyouhold.us14.list-manage.com/subscribe/post?u=${process.env.U}&id=${process.env.ID}`
+  const postUrl = `https://heartsyouhold.us14.list-manage.com/subscribe/post?u=${process.env.U}&id=${process.env.mailchimpID}`
 
   return (
     <div className="Mailchimp-container">

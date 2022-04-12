@@ -1,111 +1,142 @@
-import { useEffect } from "react";
-import {
-    PayPalScriptProvider,
-    PayPalButtons,
-    usePayPalScriptReducer
-} from "@paypal/react-paypal-js";
+import React, { useState, useEffect } from "react";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-// This values are the props in the UI
-const amount = "2";
-const currency = "USD";
-const style = {"layout":"vertical"};
+export default function PayPal(props) {
+  const amount = props.totalDonation;
 
-// Custom component to wrap the PayPalButtons and handle currency changes
-const ButtonWrapper = ({ currency, showSpinner }) => {
-    // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
-    // This is the main reason to wrap the PayPalButtons in a new component
-    const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+  const [show, setShow] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [orderID, setOrderID] = useState(false);
 
-    useEffect(() => {
-        dispatch({
-            type: "resetOptions",
-            value: {
-                ...options,
-                currency: currency,
+
+  let notFunded = props.notFunded;
+
+  let setNotFunded = props.setNotFunded;
+
+  let isFunded = props.isFunded;
+
+  let setIsFunded = props.setIsFunded
+
+
+  useEffect(() => {
+
+    async function postData() {
+
+    let purchasedItems = notFunded.filter((item) => {
+      return item.inShoppingCart === true;
+    });
+  
+    console.log(purchasedItems);
+  
+    purchasedItems = purchasedItems.map((purchasedItem) => {
+      return ({
+        ...purchasedItem,
+        inShoppingCart: false,
+        isFunded: true,
+      });
+    });
+  
+    console.log(purchasedItems);
+
+    let response = await fetch(`http://localhost:8003/#donation-cart`, {
+      method: "POST",
+      body: JSON.stringify(purchasedItems),
+      headers: {"Content-type": "application/json"},
+    });
+    response = await response.json();
+  }
+
+  postData()
+
+  }, [notFunded])
+
+
+
+  // creates a paypal order
+  const createOrder = (data, actions) => {
+    console.log(typeof amount, amount);
+    return actions.order
+      .create({
+        // combination of amount and currency
+        purchase_units: [
+          {
+            amount: {
+              currency_code: "USD",
+              value: amount,
             },
-        });
-    }, [currency, showSpinner]);
+          },
+        ],
+      })
+      .then((orderID) => {
+        setOrderID(orderID);
+        return orderID;
+      });
+  };
 
-    return (
-        <>
-            { (showSpinner && isPending) && <div className="spinner" /> }
-            <PayPalButtons
-                style={style}
-                disabled={false}
-                forceReRender={[amount, currency, style]}
-                fundingSource="paypal"
-                createOrder={(data, actions) => {
-                    return actions.order
-                        .create({
-                            purchase_units: [
-                                {
-                                    amount: {
-                                        currency_code: currency,
-                                        value: amount,
-                                    },
-                                },
-                            ],
-                        })
-                        .then((orderId) => {
-                            // Your code here after create the order
-                            return orderId;
-                        });
-                }}
-                onApprove={function (data, actions) {
-                    return actions.order.capture().then(function () {
-                        // Your code here after capture the order
-                    });
-                }}
-            />
-            <PayPalButtons
-                style={style}
-                disabled={false}
-                forceReRender={[amount, currency, style]}
-                fundingSource="card"
-                createOrder={(data, actions) => {
-                    return actions.order
-                        .create({
-                            purchase_units: [
-                                {
-                                    amount: {
-                                        currency_code: currency,
-                                        value: amount,
-                                    },
-                                },
-                            ],
-                        })
-                        .then((orderId) => {
-                            // Your code here after create the order
-                            return orderId;
-                        });
-                }}
-                onApprove={function (data, actions) {
-                    return actions.order.capture().then(function () {
-                        // Your code here after capture the order
-                    });
-                }}
-            />
-            
+  // check Approval
+  const onApprove = (data, actions) => {
 
-        </>
-    );
-}
+    // notFunded = notFunded.map((notFundedItem) => {
 
-export default function App() {
-	return (
-		<div style={{ maxWidth: "750px", minHeight: "200px" }}>
-            <PayPalScriptProvider
-                options={{
-                    "client-id": "test",
-                    components: "buttons",
-                    currency: "USD"
-                }}
-            >
-				<ButtonWrapper
-                    currency={currency}
-                    showSpinner={false}
-                />
-			</PayPalScriptProvider>
-		</div>
-	);
+    //   console.log(notFundedItem.inShoppingCart);
+        
+    //   if (notFundedItem.inShoppingCart) {
+    //       return ({
+    //       ...notFundedItem,
+    //       inShoppingCart: false,
+    //       isFunded: true,
+
+    //   });
+
+    //   } else {
+
+    //   return notFundedItem
+
+    //   }
+    // });
+    // console.log(notFunded);
+
+    // setNotFunded(notFunded)
+
+    return actions.order.capture().then(function (details) {
+      const { payer } = details;
+      setSuccess(true);
+      setSuccessMessage("Successful Purchase");
+    });
+  };
+  //capture errors if one occurs
+  const onError = (data, actions) => {
+    setErrorMessage("An Error occured with your payment");
+  };
+
+
+
+
+
+  
+  return (
+    <PayPalScriptProvider
+      options={{
+        "client-id":
+          "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
+      }}
+    >
+      <div>
+        <div className="wrapper">
+          {successMessage}
+          {/* <button type="submit" onClick={() => setShow(true)}></button>*/}
+        </div>
+      </div>
+       {/* keeping incase i need to hide the btns  */}
+      {show ? (
+        <PayPalButtons
+          style={{ layout: "horizontal" }}
+          createOrder={createOrder}
+          onApprove={onApprove}
+        />
+      ) : null}
+    </PayPalScriptProvider>
+  );
 }

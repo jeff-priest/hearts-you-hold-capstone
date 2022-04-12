@@ -5,8 +5,15 @@ import Percentage from "./Percentage.js";
 import "./styles/shoppingCart.css";
 
 export default function ShoppingCart(props) {
-  const [totalDonation, setTotalDonation] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
+
+  let payPalOpen = props.payPalOpen
+
+  let setPayPalOpen = props.setPayPalOpen
+
+  let totalDonation = props.totalDonation
+
+  let setTotalDonation = props.setTotalDonation
 
   let notFunded = props.notFunded;
 
@@ -92,6 +99,14 @@ export default function ShoppingCart(props) {
     }
   };
 
+  let payPal = () => {
+
+    setPayPalOpen(true)
+    setShoppingCartIsOpen(false)
+
+    console.log("paypal test");
+  };
+
   return (
     <>
       <div id="donation-cart">
@@ -129,8 +144,18 @@ export default function ShoppingCart(props) {
           )}
         </section>
       </div>
-      <PayPal totalDonation={totalDonation} />
-      <Mail />
+
+      <button onClick={payPal}>
+        Submit
+      </button>
+
+
+
+      <center><div id="api">
+        {/* <PayPal totalDonation={totalDonation} /> */}
+        {/* {payPal} */}
+        <Mail />
+      </div></center>
     </>
   );
 }
