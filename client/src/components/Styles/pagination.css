@@ -1,0 +1,40 @@
+.paginationButtonsContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+    width: 80%;
+    align-items: center;
+    font-size: 1.2rem;
+
+    padding: .8rem;
+    background: #ffffff;
+    width: 90%;
+    margin: 1.6rem auto 1.6rem auto;
+    border-radius: 0.4rem;
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.previousButton {
+    padding: .4rem;
+    margin: .4rem;
+    cursor: pointer;
+}
+
+.nextButton {
+    padding: .4rem;
+    margin: .4rem;
+    cursor: pointer;
+}
+
+.paginationActiveButton {
+    background: #cc6072;
+    color: #ffffff;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
+.paginationPages {
+    padding: .4rem;
+    margin: .4rem;
+    cursor: pointer;
+}

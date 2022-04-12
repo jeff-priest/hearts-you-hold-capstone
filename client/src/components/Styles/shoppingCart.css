@@ -1,10 +1,20 @@
+@keyframes pageLoad {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 /* container */
-.shoppingCart {
+#donation-cart {
   display: flex;
   flex-direction: column;
   background: #ffffff;
   width: 100%;
   margin: 1.6rem auto 1.6rem auto;
+  animation: .3s ease-in pageLoad;
 }
 
 .shoppingCartHeader {
@@ -33,6 +43,7 @@
   border-radius: 0.3rem;
   border: none;
   margin: auto auto 1.6rem auto;
+  cursor: pointer;
 }
 
 .shoppingCartButton:hover {
@@ -67,4 +78,52 @@
   width: 100%;
   padding: 1.6rem 0 1.6rem 0;
   font-size: 1.6rem;
+}
+
+.percentageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  text-align: center;
+
+  width: 80%;
+  background: #ffffff;
+  margin: 1.6rem auto 1.6rem auto;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+#checkLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#checkInput {
+  margin-right: .4rem;
+}
+
+.radioContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.radioInput {
+  margin: 0 .4rem 0 .4rem;
+}
+
+.percentageHeader {
+  margin: .8rem;
+  padding: 0 .8rem 0 .8rem;
+}
+
+@media screen and (min-width: 640px) {
+  .radioContainer {
+    flex-direction: row;
+  }
 }
