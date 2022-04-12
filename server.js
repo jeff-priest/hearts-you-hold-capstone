@@ -36,6 +36,10 @@ app.get("/", async (request, response) => {
     response.json(fundedArray)
 });
 
+app.post("/#donation-cart", async (request, response) => {
+    console.log(request.body);
+})
+
 app.listen(port, host, () => {
     console.log('listening on port: ' + port + ' and host: ' +  host ) 
   })

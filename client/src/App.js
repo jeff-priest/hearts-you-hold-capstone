@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Funded from "./components/Funded.js";
 import Home from "./components/Home.js"
 
 import "./normalizer.css"
-import "./styles.css"
+import "./Styles.css"
 
 export default function App() {
   //state holding json isFunded = false list
@@ -34,8 +33,6 @@ export default function App() {
       donationItemPrice = (donationItemPrice * 0.15) + donationItemPrice;
 
       donationItemPrice = Math.ceil(donationItemPrice);
-
-      console.log(donationItemPrice)
 
       return ({
           ...notFundedObject,
@@ -71,6 +68,7 @@ export default function App() {
                 notFunded={notFunded}
                 setNotFunded={setNotFunded}
                 isFunded={isFunded}
+                setIsFunded={setIsFunded}
               />
             }
           />
@@ -86,6 +84,7 @@ export default function App() {
           />
         </Routes>
       </div>
+
     </>
   );
 }
