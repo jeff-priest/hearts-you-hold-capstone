@@ -73,17 +73,12 @@ export default function Funded(props) {
 
   //slices the section from the total list of items that corresponds to page number
 
-  // console.log(donationItems);
-
   let displayDonationItems = isFunded
     .slice(pagesVisited, pagesVisited + donationItemsPerPage)
     .map((donationItemCard, index) => {
       //this variable is a placeholder idea for limiting the description size
 
       descriptionSlice(donationItemCard.donationDescription);
-
-
-      console.log(viewedDescription);
 
       //variable for if readMoreOpen = true
       let readLessDescription = (
@@ -158,8 +153,6 @@ export default function Funded(props) {
         </li>
       );
     });
-
-  console.log(displayDonationItems);
 
   let pageCount = Math.ceil(isFunded.length / donationItemsPerPage);
 

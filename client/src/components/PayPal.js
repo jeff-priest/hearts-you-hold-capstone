@@ -43,7 +43,7 @@ export default function PayPal(props) {
 
     let response = await fetch(`http://localhost:8003/donation-cart`, {
       method: "POST",
-      body: JSON.stringify({purchasedItems}),
+      body: JSON.stringify(purchasedItems),
       headers: {"Content-Type": "application/json"},
     });
     response = await response.json();
@@ -79,28 +79,6 @@ export default function PayPal(props) {
   // check Approval
   const onApprove = (data, actions) => {
 
-    // notFunded = notFunded.map((notFundedItem) => {
-
-    //   console.log(notFundedItem.inShoppingCart);
-        
-    //   if (notFundedItem.inShoppingCart) {
-    //       return ({
-    //       ...notFundedItem,
-    //       inShoppingCart: false,
-    //       isFunded: true,
-
-    //   });
-
-    //   } else {
-
-    //   return notFundedItem
-
-    //   }
-    // });
-    // console.log(notFunded);
-
-    // setNotFunded(notFunded)
-
     return actions.order.capture().then(function (details) {
       const { payer } = details;
       setSuccess(true);
@@ -112,11 +90,6 @@ export default function PayPal(props) {
     setErrorMessage("An Error occured with your payment");
   };
 
-
-
-
-
-  
   return (
     <PayPalScriptProvider
       options={{

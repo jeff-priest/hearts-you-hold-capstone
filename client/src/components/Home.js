@@ -106,7 +106,7 @@ export default function Home(props) {
 
       { payPalOpen && (
       <>
-      <div id="payPalContainer">
+      <div id="paypal">
       <PayPal
         totalDonation={totalDonation} 
         notFunded={notFunded}

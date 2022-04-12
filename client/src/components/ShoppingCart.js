@@ -143,7 +143,7 @@ export default function ShoppingCart(props) {
           )}
 
 
-          <Link className="submitContainer" to="#payPalContainer">
+          <Link className="submitContainer" to="#paypal">
             <button className="addToDonation" 
             onClick={payPal}>
               Pay Now!

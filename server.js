@@ -37,9 +37,16 @@ app.get("/", async (request, response) => {
 app.post("/donation-cart", async (request, response) => {
     let itemsToChange = request.body;
     
+    console.log(itemsToChange);
+    let changedItems = []
     
+    for(let i = 0; i < itemsToChange.length; i++) {
+
+        changedItems = await Request.findByIdAndUpdate(itemsToChange[i]._id, {isFunded: true})
+             
+    }
     
-    response.send("Happy!")
+    response.send(changedItems)
 
 })
 
