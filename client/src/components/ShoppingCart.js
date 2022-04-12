@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PayPal from "./PayPal.js";
-import Mail from "./Mail.js";
+import { HashLink as Link } from "react-router-hash-link";
 import Percentage from "./Percentage.js";
 import "./styles/shoppingCart.css";
 
@@ -142,20 +141,17 @@ export default function ShoppingCart(props) {
               notFunded={notFunded}
             />
           )}
+
+
+          <Link className="submitContainer" to="#payPalContainer">
+            <button className="addToDonation" 
+            onClick={payPal}>
+              Pay Now!
+            </button>
+          </Link>
+
         </section>
-      </div>
-
-      <button onClick={payPal}>
-        Submit
-      </button>
-
-
-
-      <center><div id="api">
-        {/* <PayPal totalDonation={totalDonation} /> */}
-        {/* {payPal} */}
-        <Mail />
-      </div></center>
+        </div>
     </>
   );
 }

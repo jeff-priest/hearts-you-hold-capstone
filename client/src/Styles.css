@@ -85,6 +85,8 @@ ul {
 }
 
 .addToDonation {
+  text-decoration: none;
+
   background: #cc6072;
   color: #ffffff;
   font-size: 1rem;

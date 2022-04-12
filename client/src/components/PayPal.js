@@ -41,10 +41,10 @@ export default function PayPal(props) {
   
     console.log(purchasedItems);
 
-    let response = await fetch(`http://localhost:8003/#donation-cart`, {
+    let response = await fetch(`http://localhost:8003/donation-cart`, {
       method: "POST",
-      body: JSON.stringify(purchasedItems),
-      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({purchasedItems}),
+      headers: {"Content-Type": "application/json"},
     });
     response = await response.json();
   }

@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const cors = require('cors');
 const port = process.env.PORT || 8003;
 const host = process.env.PORT || 8003;
-const http = require("http");
 require ("dotenv").config();
 const app = express();
 
@@ -18,7 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 
 //bringing in schema 
 const requestSchema = require('./data.js');
-const { response } = require("express");
 
 //model for schema instances
 const Request = mongoose.model('RequestItem', requestSchema);
@@ -36,8 +34,13 @@ app.get("/", async (request, response) => {
     response.json(fundedArray)
 });
 
-app.post("/#donation-cart", async (request, response) => {
-    console.log(request.body);
+app.post("/donation-cart", async (request, response) => {
+    let itemsToChange = request.body;
+    
+    
+    
+    response.send("Happy!")
+
 })
 
 app.listen(port, host, () => {

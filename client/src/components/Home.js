@@ -3,6 +3,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import ShoppingCart from "./ShoppingCart.js";
 import NotFundedPagination from "./NotFundedPagination.js";
 import PayPal from "./PayPal.js";
+import Mail from "./Mail.js";
 import ScrollToTop from "./ScrollToTop.js";
 import "./styles/home.css";
 import Hearts from "./assets/hearts.png";
@@ -26,6 +27,7 @@ export default function Home(props) {
 
   let openShoppingCart = () => {
     setShoppingCartIsOpen(true);
+    setPayPalOpen(false)
   };
 
   useEffect(() =>{
@@ -102,13 +104,24 @@ export default function Home(props) {
         />
       )}
 
-{ payPalOpen && <PayPal
-  totalDonation={totalDonation} 
-  notFunded={notFunded}
-  setNotFunded={setNotFunded}
-  setIsFunded={setIsFunded}
-  isFunded={isFunded}
-  /> }
+      { payPalOpen && (
+      <>
+      <div id="payPalContainer">
+      <PayPal
+        totalDonation={totalDonation} 
+        notFunded={notFunded}
+        setNotFunded={setNotFunded}
+        setIsFunded={setIsFunded}
+        isFunded={isFunded}
+      />
+        <center>
+          <div id="api">
+          <Mail />
+        </div>
+      </center>
+      </div>
+      </>
+      )}
       </div>
     </>
   );
