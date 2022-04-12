@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
 import ShoppingCart from "./ShoppingCart.js";
 import NotFundedPagination from "./NotFundedPagination.js";
@@ -10,6 +10,7 @@ export default function Home(props) {
   const [shoppingCartIsOpen, setShoppingCartIsOpen] = useState(false);
   const [showShoppingCartButton, setShowShoppingCartButton] = useState(false);
 
+
   let isFunded = props.isFunded;
 
   let totalFunded = isFunded.length;
@@ -20,10 +21,24 @@ export default function Home(props) {
     setShoppingCartIsOpen(true);
   };
 
+  useEffect(() =>{
+
+    let shoppingCartItem = notFunded.filter((item) => {
+      return item.inShoppingCart === true;
+    });
+
+    if(shoppingCartItem[0]?.inShoppingCart === true) {
+      setShowShoppingCartButton(true)
+    } else 
+
+    return
+
+  }, []);
+
   return (
     <>
     <ScrollToTop/>
-
+      <div className="body">
       <div className="heroContainer">
         <h1 className="heroHeader">
           Requests:<br></br>Organizations & Individual
@@ -72,6 +87,7 @@ export default function Home(props) {
           setShoppingCartIsOpen={setShoppingCartIsOpen}
         />
       )}
+      </div>
     </>
   );
 }

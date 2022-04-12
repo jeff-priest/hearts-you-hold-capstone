@@ -171,6 +171,7 @@ export default function Funded(props) {
   return (
     <>
       <ScrollToTop/>
+      <div className="body">
       <div className="heroContainer">
         <h1 className="heroHeader">Funded Requests</h1>
         <p className="heroText">
@@ -207,6 +208,7 @@ export default function Funded(props) {
         nextLinkClassName={"nextButton"}
         activeClassName={"paginationActiveButton"}
       />
+      </div>
     </>
   );
 }

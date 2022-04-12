@@ -27,13 +27,24 @@ export default function App() {
 
       //mapping over response object to add inShoppingCart = false - key-value
       notFundedVariable = notFundedVariable.map((notFundedObject, index) => {
-        return (notFundedVariable = {
+
+      //adds 15% to item price and rounds up to next dollar
+      let donationItemPrice = notFundedObject.itemPrice
+
+      donationItemPrice = (donationItemPrice * 0.15) + donationItemPrice;
+
+      donationItemPrice = Math.ceil(donationItemPrice);
+
+      console.log(donationItemPrice)
+
+      return ({
           ...notFundedObject,
           inShoppingCart: false,
           readMoreOpen: false,
-        });
+          itemPricePlusFifteen: donationItemPrice
       });
-      //setting response to notFunded state
+  })
+
       setNotFunded(notFundedVariable);
 
       setIsFunded(fundedVariable)

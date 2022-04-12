@@ -4,10 +4,10 @@ import "./styles/pagination.css"
 
 export default function NotFundedPagination(props) {
 
-
     let notFunded = props.notFunded
     let setNotFunded = props.setNotFunded
     let setShowShoppingCartButton = props.setShowShoppingCartButton
+
 
 
   //function receives object id for each donationItemCard as parameter and maps over the notFunded state and finds the one that matches and changes its inShoppingCart value to true, function then resets notFunded state with new inShoppingCart values
@@ -48,6 +48,8 @@ export default function NotFundedPagination(props) {
 
   let viewedDescription = null
 
+  let donationItemPrice = 0
+
   function descriptionSlice(itemDescription) {
 
     //if the description is less than 20 characters, show the whole description
@@ -77,7 +79,6 @@ export default function NotFundedPagination(props) {
       }
     }
   }
-
     //what page of items the user is on
     const [pageNumber, setPageNumber] = useState(0);
 
@@ -88,9 +89,6 @@ export default function NotFundedPagination(props) {
     let pagesVisited = pageNumber * donationItemsPerPage;
 
     //slices the section from the total list of items that corresponds to page number
-
-
-    // console.log(donationItems);
 
     let displayDonationItems = notFunded.slice(pagesVisited, pagesVisited + donationItemsPerPage).map((donationItemCard, index) => {
            //this variable is a placeholder idea for limiting the description size
@@ -180,7 +178,7 @@ export default function NotFundedPagination(props) {
           <section className="cardPriceReceipientLocation">
 
             <div className="cardItemPriceContainer">
-            <h2 className="cardItemPrice">{`$${donationItemCard.itemPrice}`}</h2>
+            <h2 className="cardItemPrice">{`$${donationItemCard.itemPricePlusFifteen}`}</h2>
             </div>
 
             <div className="cardRecipientContainer">    
@@ -192,8 +190,6 @@ export default function NotFundedPagination(props) {
       </li>
     );
   });
-
-    console.log(displayDonationItems);
 
     let pageCount = Math.ceil(notFunded.length / donationItemsPerPage);
 
