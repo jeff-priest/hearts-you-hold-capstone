@@ -99,9 +99,19 @@
 }
 
 #paypal {
+    display: flex;
+    justify-content: center;
     height: 100vh;
     text-decoration: none;
-  }
+}
+
+#Mail {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    text-decoration: none;
+
+}
 
 /* jump to non-mobile view */
 @media screen and (min-width: 640px) {
