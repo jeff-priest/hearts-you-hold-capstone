@@ -1,6 +1,7 @@
 // testing branches
 import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import "./styles/api.css"
 
 export default function PayPal(props) {
   const amount = props.totalDonation;
@@ -11,49 +12,42 @@ export default function PayPal(props) {
   const [successMessage, setSuccessMessage] = useState("");
   const [orderID, setOrderID] = useState(false);
 
-
   let notFunded = props.notFunded;
 
   let setNotFunded = props.setNotFunded;
 
   let isFunded = props.isFunded;
 
-  let setIsFunded = props.setIsFunded
-
+  let setIsFunded = props.setIsFunded;
 
   useEffect(() => {
-
     async function postData() {
-
-    let purchasedItems = notFunded.filter((item) => {
-      return item.inShoppingCart === true;
-    });
-  
-    console.log(purchasedItems);
-  
-    purchasedItems = purchasedItems.map((purchasedItem) => {
-      return ({
-        ...purchasedItem,
-        inShoppingCart: false,
-        isFunded: true,
+      let purchasedItems = notFunded.filter((item) => {
+        return item.inShoppingCart === true;
       });
-    });
-  
-    console.log(purchasedItems);
 
-    let response = await fetch(`http://localhost:8003/donation-cart`, {
-      method: "POST",
-      body: JSON.stringify(purchasedItems),
-      headers: {"Content-Type": "application/json"},
-    });
-    response = await response.json();
-  }
+      console.log(purchasedItems);
 
-  postData()
+      purchasedItems = purchasedItems.map((purchasedItem) => {
+        return {
+          ...purchasedItem,
+          inShoppingCart: false,
+          isFunded: true,
+        };
+      });
 
-  }, [notFunded])
+      console.log(purchasedItems);
 
+      let response = await fetch(`http://localhost:8003/donation-cart`, {
+        method: "POST",
+        body: JSON.stringify(purchasedItems),
+        headers: { "Content-Type": "application/json" },
+      });
+      response = await response.json();
+    }
 
+    postData();
+  }, [notFunded]);
 
   // creates a paypal order
   const createOrder = (data, actions) => {
@@ -78,7 +72,6 @@ export default function PayPal(props) {
 
   // check Approval
   const onApprove = (data, actions) => {
-
     return actions.order.capture().then(function (details) {
       const { payer } = details;
       setSuccess(true);
@@ -97,20 +90,21 @@ export default function PayPal(props) {
           "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
       }}
     >
-      <div>
-        <div className="wrapper">
-          {successMessage}
-          {/* <button type="submit" onClick={() => setShow(true)}></button>*/}
-        </div>
-      </div>
-       {/* keeping incase i need to hide the btns  */}
-      {show ? (
-        <PayPalButtons
-          style={{ layout: "horizontal" }}
-          createOrder={createOrder}
-          onApprove={onApprove}
-        />
-      ) : null}
+      <div className="wrapper">{successMessage}</div>
+      <PayPalButtons
+        style={{ layout: "horizontal" }}
+        fundingSource="paypal"
+        createOrder={createOrder}
+        onApprove={onApprove}
+      />
+      ,
+      <PayPalButtons
+        style={{ layout: "horizontal" }}
+        fundingSource="card"
+        createOrder={createOrder}
+        onApprove={onApprove}
+      />,
+
     </PayPalScriptProvider>
   );
 }
