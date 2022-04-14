@@ -1,22 +1,22 @@
 .searchSectionContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .categorySearch {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    margin: 1.6rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  margin: 1.6rem 0 0 0;
 }
 
 #categorySelect {
-    background: #ffffff;
-    margin-top: .4rem;
-    border-radius: 0.4rem;
-    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
-    text-align: center;
+  background: #ffffff;
+  margin-top: 0.4rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+  text-align: center;
 }

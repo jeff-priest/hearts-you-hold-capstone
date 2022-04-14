@@ -1,7 +1,7 @@
 // testing branches
 import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import "./styles/api.css"
+import "./styles/api.css";
 
 export default function PayPal(props) {
   const amount = props.totalDonation;
@@ -103,8 +103,8 @@ export default function PayPal(props) {
         fundingSource="card"
         createOrder={createOrder}
         onApprove={onApprove}
-      />,
-
+      />
+      ,
     </PayPalScriptProvider>
   );
 }
