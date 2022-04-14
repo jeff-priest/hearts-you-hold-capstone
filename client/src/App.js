@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Funded from "./components/Funded.js";
-import Home from "./components/Home.js"
+import Home from "./components/Home.js";
 
-import "./normalizer.css"
-import "./Styles.css"
+import "./normalizer.css";
+import "./Styles.css";
 
 export default function App() {
   //state holding json isFunded = false list
   const [notFunded, setNotFunded] = useState([]);
   const [isFunded, setIsFunded] = useState([]);
+  const [itemCategoriesList, setItemCategoriesList] = useState([]);
 
   //fetching isFunded = false items from DB
   useEffect(() => {
@@ -20,31 +21,34 @@ export default function App() {
 
       response = await response.json();
 
-      let notFundedVariable = response[0]
+      setItemCategoriesList(response[1]);
 
-      let fundedVariable = response[1]
+      response = response[0];
+
+      let notFundedVariable = response[0];
+
+      let fundedVariable = response[1];
 
       //mapping over response object to add inShoppingCart = false - key-value
       notFundedVariable = notFundedVariable.map((notFundedObject, index) => {
+        //adds 15% to item price and rounds up to next dollar
+        let donationItemPrice = notFundedObject.itemPrice;
 
-      //adds 15% to item price and rounds up to next dollar
-      let donationItemPrice = notFundedObject.itemPrice
+        donationItemPrice = donationItemPrice * 0.15 + donationItemPrice;
 
-      donationItemPrice = (donationItemPrice * 0.15) + donationItemPrice;
+        donationItemPrice = Math.ceil(donationItemPrice);
 
-      donationItemPrice = Math.ceil(donationItemPrice);
-
-      return ({
+        return {
           ...notFundedObject,
           inShoppingCart: false,
           readMoreOpen: false,
-          itemPricePlusFifteen: donationItemPrice
+          itemPricePlusFifteen: donationItemPrice,
+        };
       });
-  })
 
       setNotFunded(notFundedVariable);
 
-      setIsFunded(fundedVariable)
+      setIsFunded(fundedVariable);
     }
 
     if (isConnectedToServer) {
@@ -69,6 +73,7 @@ export default function App() {
                 setNotFunded={setNotFunded}
                 isFunded={isFunded}
                 setIsFunded={setIsFunded}
+                itemCategoriesList={itemCategoriesList}
               />
             }
           />
@@ -76,15 +81,14 @@ export default function App() {
             path="/Funded"
             element={
               <Funded
-              notFunded={notFunded}
-              isFunded={isFunded}
-              setIsFunded={setIsFunded}
+                notFunded={notFunded}
+                isFunded={isFunded}
+                setIsFunded={setIsFunded}
               />
             }
           />
         </Routes>
       </div>
-
     </>
   );
 }
