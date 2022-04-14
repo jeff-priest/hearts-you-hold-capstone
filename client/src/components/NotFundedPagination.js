@@ -1,20 +1,23 @@
-import React, { useState } from "react";
-import ReactPaginate from 'react-paginate';
-import "./styles/pagination.css"
+import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
+import "./styles/pagination.css";
 
 export default function NotFundedPagination(props) {
+  let notFunded = props.notFunded;
+  let setNotFunded = props.setNotFunded;
+  let setShowShoppingCartButton = props.setShowShoppingCartButton;
+  let itemCategory = props.itemCategory;
+  let pageNumber = props.pageNumber;
+  let setPageNumber = props.setPageNumber;
 
-    let notFunded = props.notFunded
-    let setNotFunded = props.setNotFunded
-    let setShowShoppingCartButton = props.setShowShoppingCartButton
-
-
+  const [donationItemsToDisplay, setDonationItemsToDisplay] = useState("");
+  const [notFundedLength, setNotFundedLength] = useState(0);
 
   //function receives object id for each donationItemCard as parameter and maps over the notFunded state and finds the one that matches and changes its inShoppingCart value to true, function then resets notFunded state with new inShoppingCart values
   function addToCart(event, id) {
     let addedItem = notFunded.map((item) => {
       if (item._id === id) {
-        setShowShoppingCartButton(true)
+        setShowShoppingCartButton(true);
         return { ...item, inShoppingCart: true };
       } else {
         return item;
@@ -46,12 +49,9 @@ export default function NotFundedPagination(props) {
     setNotFunded(clickedItem);
   }
 
-  let viewedDescription = null
-
-  let donationItemPrice = 0
+  let viewedDescription = null;
 
   function descriptionSlice(itemDescription) {
-
     //if the description is less than 20 characters, show the whole description
     if (itemDescription.length < 20) {
       viewedDescription = itemDescription;
@@ -79,139 +79,176 @@ export default function NotFundedPagination(props) {
       }
     }
   }
-    //what page of items the user is on
-    const [pageNumber, setPageNumber] = useState(0);
 
-    //number of items on each page
-    let donationItemsPerPage = 2
+  //pagination
+  let donationItemsPerPage = 2;
 
-    //page number state multiplied by how many items appear on each page
-    let pagesVisited = pageNumber * donationItemsPerPage;
+  let pagesVisited = pageNumber * donationItemsPerPage;
 
+  let displayDonationItems = [];
+
+  //creates item list
+  function mapTheItems() {
     //slices the section from the total list of items that corresponds to page number
+    displayDonationItems = notFunded
+      ?.slice(pagesVisited, pagesVisited + donationItemsPerPage)
+      .map((donationItemCard, index) => {
+        //this variable is a placeholder idea for limiting the description size
 
-    let displayDonationItems = notFunded.slice(pagesVisited, pagesVisited + donationItemsPerPage).map((donationItemCard, index) => {
-           //this variable is a placeholder idea for limiting the description size
+        descriptionSlice(donationItemCard.donationDescription);
 
-    descriptionSlice(donationItemCard.donationDescription);
+        //variable for if readMoreOpen = true
+        let readLessDescription = (
+          <>
+            {donationItemCard.donationDescription}
+            <button
+              className="readMoreBtn"
+              onClick={(event) => {
+                closeReadMore(event, donationItemCard._id);
+              }}
+            >
+              Read Less
+            </button>
+          </>
+        );
 
-    //variable for if readMoreOpen = true
-    let readLessDescription = (
-      <>
-        {donationItemCard.donationDescription}
-        <button className="readMoreBtn"
-          onClick={(event) => {
-            closeReadMore(event, donationItemCard._id);
-          }}
-        >
-          Read Less
-        </button>
-      </>
-    );
+        //variable for if readMoreOpen = false
+        let readMoreDescription = (
+          //if the description is over 20 characters show the read more button
+          <>
+            {viewedDescription.length > 20 ? (
+              <>
+                {viewedDescription}
+                <button
+                  className="readMoreBtn"
+                  onClick={(event) => {
+                    openReadMore(event, donationItemCard._id);
+                  }}
+                >
+                  Read More...
+                </button>
+              </>
+            ) : (
+              //if the description is under 20 characters just show the description without a read more button
+              <>{viewedDescription}</>
+            )}
+          </>
+        );
 
-    //variable for if readMoreOpen = false
-    let readMoreDescription = (
-      //if the description is over 20 characters show the read more button
-      <>{viewedDescription.length > 20 ? 
-        <>{viewedDescription}
-        <button className="readMoreBtn"
-          onClick={(event) => {
-            openReadMore(event, donationItemCard._id);
-          }}
-        >
-          Read More...
-        </button></> : 
-        //if the description is under 20 characters just show the description without a read more button
-        <>{viewedDescription}</>}
-      </>
-    );
+        //variable for button that renders when inShoppingCart is true
+        let inCartButton = (
+          <>
+            <button
+              className="addedToDonation"
+              disabled={true}
+              onClick={(event) => {
+                addToCart(event, donationItemCard._id);
+              }}
+            >
+              Added To Donation
+            </button>
+          </>
+        );
 
-    //variable for button that renders when inShoppingCart is true
-    let inCartButton = (
-      <>
-        <button
-          className="addedToDonation"
-          disabled={true}
-          onClick={(event) => {
-            addToCart(event, donationItemCard._id);
-          }}
-        >
-          Added To Donation
-        </button>
-      </>
-    );
+        //variable for button that renders when inShoppingCart is false
+        let notInCartButton = (
+          <>
+            <button
+              className="addToDonation"
+              disabled={false}
+              onClick={(event) => {
+                addToCart(event, donationItemCard._id);
+              }}
+            >
+              Donate
+            </button>
+          </>
+        );
 
-    //variable for button that renders when inShoppingCart is false
-    let notInCartButton = (
-      <>
-        <button
-          className="addToDonation"
-          disabled={false}
-          onClick={(event) => {
-            addToCart(event, donationItemCard._id);
-          }}
-        >
-          Donate
-        </button>
-      </>
-    );
+        return (
+          //creating unique key for each li
+          <li key={`donationItemCard-${index}`}>
+            <div className="donationCard">
+              {/* contents for left side of item card*/}
+              <section className="cardNameDescription">
+                <h2 className="cardName">{donationItemCard.itemName}</h2>
+                <div className="cardDescriptionText">
+                  {donationItemCard.readMoreOpen
+                    ? readLessDescription
+                    : readMoreDescription}
+                </div>
 
-    return (
-      //creating unique key for each li
-      <li key={`donationItemCard-${index}`}>
-        <div className="donationCard">
+                <div className="donateButtonContainer">
+                  {donationItemCard.inShoppingCart
+                    ? inCartButton
+                    : notInCartButton}
+                </div>
+              </section>
 
-          {/* contents for left side of item card*/}
-          <section className="cardNameDescription">
-            <h2 className="cardName">{donationItemCard.itemName}</h2>
-            <div className="cardDescriptionText">{donationItemCard.readMoreOpen
-              ? readLessDescription
-              : readMoreDescription}</div>
+              {/* contents for right side of item card*/}
+              <section className="cardPriceReceipientLocation">
+                <div className="cardItemPriceContainer">
+                  <h2 className="cardItemPrice">{`$${donationItemCard.itemPricePlusFifteen}`}</h2>
+                </div>
 
-          <div className="donateButtonContainer">
-          {donationItemCard.inShoppingCart ? inCartButton : notInCartButton}
-          </div>
-          </section>
-
-
-          {/* contents for right side of item card*/}
-          <section className="cardPriceReceipientLocation">
-
-            <div className="cardItemPriceContainer">
-            <h2 className="cardItemPrice">{`$${donationItemCard.itemPricePlusFifteen}`}</h2>
+                <div className="cardRecipientContainer">
+                  <h4 className="cardRecipientName">
+                    {donationItemCard.recipientName}
+                  </h4>
+                  <div className="cardLocation">{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
+                </div>
+              </section>
             </div>
+          </li>
+        );
+      });
 
-            <div className="cardRecipientContainer">    
-            <h4 className="cardRecipientName">{donationItemCard.recipientName}</h4>
-            <div className="cardLocation">{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
-            </div>
-          </section>
-        </div>
-      </li>
-    );
-  });
+    setDonationItemsToDisplay(displayDonationItems);
+  }
 
-    let pageCount = Math.ceil(notFunded.length / donationItemsPerPage);
+  //filters if category is present and creates item list
+  useEffect(() => {
+    if (itemCategory.length > 1) {
+      notFunded = notFunded.filter((item) => {
+        if (item.itemCategory === itemCategory) {
+          return item;
+        }
+      });
+    }
 
-    //selected is the number for the page we want to move to, built in paginate
-    let changePage = ({ selected }) => {
-        setPageNumber(selected);
-    };
+    setNotFundedLength(notFunded.length);
 
-    return (<>
-    <ul>
-      {displayDonationItems}
-    </ul>
-    <ReactPaginate
-    previousLabel={"Previous"}
-    nextLabel={"Next"}
-    pageCount={pageCount}
-    onPageChange={changePage}
-    pageClassName={"paginationPages"}
-    containerClassName={"paginationButtonsContainer"}
-    previousClassName={"previousButton"}
-    nextLinkClassName={"nextButton"}
-    activeClassName={"paginationActiveButton"}
-    />
-    </>);
+    mapTheItems();
+  }, [notFunded, itemCategory, pageNumber]);
+
+  let pageCount = Math.ceil(notFundedLength / donationItemsPerPage);
+
+  console.log(pageCount + "pageCount");
+  console.log(pageNumber + "pageNumber");
+
+
+  //selected is the number for the page we want to move to, built in paginate
+  let changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
+  return (
+    <>
+      <ul>{donationItemsToDisplay}</ul>
+
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        pageClassName={"paginationPages"}
+        containerClassName={"paginationButtonsContainer"}
+        previousClassName={"previousButton"}
+        nextLinkClassName={"nextButton"}
+        activeClassName={"paginationActiveButton"}
+        // forcePage={pageCount === 0 ? pageCount: pageNumber}
+        forcePage={pageNumber}
+      />
+    </>
+  );
 }

@@ -20,6 +20,7 @@ const requestSchema = new mongoose.Schema({
    recipientUSLocation: String,
    recipientHomeOrigin: String,
    dateCreated: Date,
+   itemCategory: String,
 
 
 })

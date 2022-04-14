@@ -4,6 +4,7 @@ import ShoppingCart from "./ShoppingCart.js";
 import NotFundedPagination from "./NotFundedPagination.js";
 import PayPal from "./PayPal.js";
 import Mail from "./Mail.js";
+import SearchBars from "./SearchBars.js";
 import ScrollToTop from "./ScrollToTop.js";
 import "./styles/home.css";
 import Hearts from "./assets/hearts.png";
@@ -13,7 +14,11 @@ export default function Home(props) {
   const [showShoppingCartButton, setShowShoppingCartButton] = useState(false);
   const [totalDonation, setTotalDonation] = useState(0);
   const [payPalOpen, setPayPalOpen] = useState(false);
+  const [itemCategory, setItemCategory] = useState(" ");
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  let itemCategoriesList = props.itemCategoriesList;
 
   let isFunded = props.isFunded;
 
@@ -23,105 +28,112 @@ export default function Home(props) {
 
   let notFunded = props.notFunded;
 
-  let setNotFunded = props.setNotFunded
+  let setNotFunded = props.setNotFunded;
 
   let openShoppingCart = () => {
     setShoppingCartIsOpen(true);
-    setPayPalOpen(false)
+    setPayPalOpen(false);
   };
 
-  useEffect(() =>{
-
+  useEffect(() => {
     let shoppingCartItem = notFunded.filter((item) => {
       return item.inShoppingCart === true;
     });
 
-    if(shoppingCartItem[0]?.inShoppingCart === true) {
-      setShowShoppingCartButton(true)
-    } else 
-
-    return
-
+    if (shoppingCartItem[0]?.inShoppingCart === true) {
+      setShowShoppingCartButton(true);
+    } else return;
   }, []);
 
   useEffect(() => {
-    setPayPalOpen(false)
-  }, [notFunded])
+    setPayPalOpen(false);
+  }, [notFunded]);
 
   return (
     <>
-    <ScrollToTop/>
+      <ScrollToTop />
       <div className="body">
-      <div className="heroContainer">
-        <h1 className="heroHeader">
-          Requests:<br></br>Organizations & Individual
-        </h1>
-        <p className="heroText">
-          Would you like to fund a request in someone's name as a gift? No
-          problem, just let us know the name and email of the person as well as
-          a little note from you and we will send a nice email to them! Leave
-          this info in the comment box when you check out!
-        </p>
+        <div className="heroContainer">
+          <h1 className="heroHeader">
+            Requests:<br></br>Organizations & Individual
+          </h1>
+          <p className="heroText">
+            Would you like to fund a request in someone's name as a gift? No
+            problem, just let us know the name and email of the person as well
+            as a little note from you and we will send a nice email to them!
+            Leave this info in the comment box when you check out!
+          </p>
 
-
-      <section className="totalFunded">
-        <div>
-          {`${totalFunded} Requests `}
-          <Link className="fundedLink" to="/Funded">
-            Funded!
-          </Link>
+          <section className="totalFunded">
+            <div>
+              {`${totalFunded} Requests `}
+              <Link className="fundedLink" to="/Funded">
+                Funded!
+              </Link>
+            </div>
+          </section>
         </div>
-      </section>
-      </div>
 
-    <section>
-      
-      { showShoppingCartButton && <div id="shoppingCartButtonContainer">
-        <img id="heartsLogo" src={Hearts} />
+        <section>
+          {showShoppingCartButton && (
+            <div id="shoppingCartButtonContainer">
+              <img id="heartsLogo" src={Hearts} />
 
-        <Link id="shoppingCartButton" to="#donation-cart">
-          <button className="goToShoppingCart" onClick={openShoppingCart}>
-            Go To Cart
-          </button>
-        </Link>
-      </div>}
+              <Link id="shoppingCartButton" to="#donation-cart">
+                <button className="goToShoppingCart" onClick={openShoppingCart}>
+                  Go To Cart
+                </button>
+              </Link>
+            </div>
+          )}
 
-      <NotFundedPagination
-        notFunded={props.notFunded}
-        setNotFunded={props.setNotFunded}
-        setShowShoppingCartButton={setShowShoppingCartButton}
-      />
-    </section>
-      {shoppingCartIsOpen && (
-        <ShoppingCart
-          notFunded={props.notFunded}
-          setNotFunded={props.setNotFunded}
-          setShowShoppingCartButton={setShowShoppingCartButton}
-          setShoppingCartIsOpen={setShoppingCartIsOpen}
-          totalDonation={totalDonation}
-          setTotalDonation={setTotalDonation}
-          setPayPalOpen={setPayPalOpen}
-        />
-      )}
+          <SearchBars
+            itemCategoriesList={itemCategoriesList}
+            setItemCategory={setItemCategory}
+            notFunded={notFunded}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
 
-      { payPalOpen && (
-      <>
-      <div id="paypal">
-      <PayPal
-        totalDonation={totalDonation} 
-        notFunded={notFunded}
-        setNotFunded={setNotFunded}
-        setIsFunded={setIsFunded}
-        isFunded={isFunded}
-      />
-        <center>
-          <div id="api">
-          <Mail />
-        </div>
-      </center>
-      </div>
-      </>
-      )}
+          <NotFundedPagination
+            notFunded={props.notFunded}
+            setNotFunded={props.setNotFunded}
+            setShowShoppingCartButton={setShowShoppingCartButton}
+            itemCategory={itemCategory}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
+        </section>
+        {shoppingCartIsOpen && (
+          <ShoppingCart
+            notFunded={props.notFunded}
+            setNotFunded={props.setNotFunded}
+            setShowShoppingCartButton={setShowShoppingCartButton}
+            setShoppingCartIsOpen={setShoppingCartIsOpen}
+            totalDonation={totalDonation}
+            setTotalDonation={setTotalDonation}
+            setPayPalOpen={setPayPalOpen}
+          />
+        )}
+
+        {payPalOpen && (
+          <>
+            <div id="paypal">
+              <PayPal
+                totalDonation={totalDonation}
+                notFunded={notFunded}
+                setNotFunded={setNotFunded}
+                setIsFunded={setIsFunded}
+                isFunded={isFunded}
+              />
+              <center>
+                <div id="api">
+                  <Mail />
+                </div>
+              </center>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
