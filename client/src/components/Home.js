@@ -16,9 +16,15 @@ export default function Home(props) {
   const [payPalOpen, setPayPalOpen] = useState(false);
   const [itemCategory, setItemCategory] = useState(" ");
 
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [pageNumber, setPageNumber] = useState(0);
 
   let itemCategoriesList = props.itemCategoriesList;
+
 
   let isFunded = props.isFunded;
 
@@ -49,6 +55,21 @@ export default function Home(props) {
     setPayPalOpen(false);
   }, [notFunded]);
 
+  function handleFirstName(e) {
+    setFirstName(e.target.value);
+    console.log(e.target.value)
+  }
+
+  function handleLastName(e) {
+    setLastName(e.target.value);
+    console.log(e.target.value)
+  }
+
+  function handleEmail(e) {
+    setEmail(e.target.value);
+    console.log(e.target.value)
+  }
+
   return (
     <>
       <ScrollToTop />
@@ -73,6 +94,87 @@ export default function Home(props) {
             </div>
           </section>
         </div>
+
+
+    <section>
+      
+      { showShoppingCartButton && <div id="shoppingCartButtonContainer">
+        <img id="heartsLogo" src={Hearts} />
+
+        <Link id="shoppingCartButton" to="#donation-cart">
+          <button className="goToShoppingCart" onClick={openShoppingCart}>
+            Go To Cart
+          </button>
+        </Link>
+      </div>}
+
+      <NotFundedPagination
+        notFunded={props.notFunded}
+        setNotFunded={props.setNotFunded}
+        setShowShoppingCartButton={setShowShoppingCartButton}
+      />
+    </section>
+
+    <center><div id="mail">
+      <h3>Subscribe to our Newletter</h3>
+      <input
+        type="text"
+        placeholder="First Name"
+        defaultValue={firstName}
+        onChange={handleFirstName}
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        defaultValue={lastName}
+        onChange={handleLastName}
+      />
+      <input
+        type="text"
+        placeholder="Email"
+        defaultValue={email}
+        onChange={handleEmail}
+      />
+
+      <Mail
+        email={email}
+        firstname={firstName}
+        lastname={lastName}
+      />
+      </div></center>
+
+      {shoppingCartIsOpen && (
+
+        <ShoppingCart
+          notFunded={props.notFunded}
+          setNotFunded={props.setNotFunded}
+          setShowShoppingCartButton={setShowShoppingCartButton}
+          setShoppingCartIsOpen={setShoppingCartIsOpen}
+          totalDonation={totalDonation}
+          setTotalDonation={setTotalDonation}
+          setPayPalOpen={setPayPalOpen}
+        />
+        )}
+        
+      { payPalOpen && (
+      <>
+
+      <div id="paypal">
+      <PayPal
+        totalDonation={totalDonation} 
+        notFunded={notFunded}
+        setNotFunded={setNotFunded}
+        setIsFunded={setIsFunded}
+        isFunded={isFunded}
+      />
+        <center>
+          <div id="api">
+          
+        </div>
+      </center>
+      </div>
+      </>
+      )}
 
         <section>
           {showShoppingCartButton && (
@@ -135,6 +237,6 @@ export default function Home(props) {
           </>
         )}
       </div>
-    </>
+  </>
   );
 }
