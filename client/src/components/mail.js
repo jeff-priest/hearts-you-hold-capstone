@@ -7,9 +7,28 @@ import queryString from "query-string";
 // u: c00ddccf8d310066a300f407c
 // id: 54c3496fcb
 
-// grab HYH U/ ID / and action url 
+// grab HYH U/ ID / and action url
 
 function Mail(props) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+
+  function handleFirstName(e) {
+    setFirstName(e.target.value);
+    console.log(e.target.value);
+  }
+
+  function handleLastName(e) {
+    setLastName(e.target.value);
+    console.log(e.target.value);
+  }
+
+  function handleEmail(e) {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+  }
+
   const subscribeToNewsLetter = () => {
     const formData = {
       EMAIL: props.email,
@@ -22,8 +41,8 @@ function Mail(props) {
       )}`,
       { param: "c" },
       (err, data) => {
-        console.log(data)
-        // return message from mailChimp API 
+        console.log(data);
+        // return message from mailChimp API
         setMessage(data.result + " : " + data.msg);
       }
     );
@@ -33,8 +52,32 @@ function Mail(props) {
 
   return (
     <div>
-      <div>{message}</div>
-      <button onClick={subscribeToNewsLetter}>Submit</button>
+      <center>
+        <div id="mail">
+          <h3>Subscribe to our Newletter</h3>
+          <input
+            type="text"
+            placeholder="First Name"
+            defaultValue={firstName}
+            onChange={handleFirstName}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            defaultValue={lastName}
+            onChange={handleLastName}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            defaultValue={email}
+            onChange={handleEmail}
+          />
+        </div>
+
+        <div>{message}</div>
+        <button onClick={subscribeToNewsLetter}>Submit</button>
+      </center>
     </div>
   );
 }

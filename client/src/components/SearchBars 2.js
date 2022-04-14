@@ -33,8 +33,10 @@ export default function Funded(props) {
         <div className="categorySearch">
           <label htmlFor="categorySelect">Search By Item Category:</label>
           <select id="categorySelect" onChange={findFilterValue}>
-            {/* <option value="" hidden selected>Category</option> */}
-            <option value="all"> All Categories </option>
+            <option value="" hidden selected>
+              Category
+            </option>
+            <option value=""> All Categories </option>
             {itemCategoriesOptionList}
           </select>
         </div>

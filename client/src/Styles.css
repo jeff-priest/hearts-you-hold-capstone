@@ -14,9 +14,8 @@
   font-family: "Nunito", sans-serif;
   background: #f6f9fc;
   color: #333;
-  animation: .3s ease-in pageLoad;
+  animation: 0.3s ease-in pageLoad;
 }
-
 
 /* donation card for requested items */
 ul {
@@ -119,18 +118,16 @@ ul {
 
 /* jump to non-mobile view */
 @media screen and (min-width: 640px) {
+  .donationCard {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-.donationCard {
-  flex-direction: row;
-  justify-content: space-between;
-}
+  .cardNameDescription {
+    width: 70%;
+  }
 
-.cardNameDescription {
-  width: 70%;
-}
-
-.cardPriceReceipientLocation {
-  width: 30%;
-}
-
+  .cardPriceReceipientLocation {
+    width: 30%;
+  }
 }

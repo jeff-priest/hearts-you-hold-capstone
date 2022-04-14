@@ -14,7 +14,7 @@
   background: #ffffff;
   width: 100%;
   margin: 1.6rem auto 1.6rem auto;
-  animation: .3s ease-in pageLoad;
+  animation: 0.3s ease-in pageLoad;
 }
 
 .shoppingCartHeader {
@@ -78,7 +78,7 @@
   width: 75%;
   padding: 1.2rem 0 1.2rem 0;
   font-size: 1.6rem;
-  
+
   background: #cc6072;
   color: #ffffff;
   border-radius: 0.3rem;
@@ -107,7 +107,7 @@
 }
 
 #checkInput {
-  margin-right: .4rem;
+  margin-right: 0.4rem;
 }
 
 .radioContainer {
@@ -116,16 +116,16 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 1.2rem;
-  padding: .8rem;
+  padding: 0.8rem;
 }
 
 .radioInput {
-  margin: 0 .4rem 0 .4rem;
+  margin: 0 0.4rem 0 0.4rem;
 }
 
 .percentageHeader {
-  margin: .8rem;
-  padding: 0 .8rem 0 .8rem;
+  margin: 0.8rem;
+  padding: 0 0.8rem 0 0.8rem;
 }
 
 .submitContainer {

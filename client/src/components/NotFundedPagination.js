@@ -208,7 +208,7 @@ export default function NotFundedPagination(props) {
 
   //filters if category is present and creates item list
   useEffect(() => {
-    if (itemCategory.length > 1) {
+    if (itemCategory !== "all") {
       notFunded = notFunded.filter((item) => {
         if (item.itemCategory === itemCategory) {
           return item;
@@ -222,10 +222,6 @@ export default function NotFundedPagination(props) {
   }, [notFunded, itemCategory, pageNumber]);
 
   let pageCount = Math.ceil(notFundedLength / donationItemsPerPage);
-
-  console.log(pageCount + "pageCount");
-  console.log(pageNumber + "pageNumber");
-
 
   //selected is the number for the page we want to move to, built in paginate
   let changePage = ({ selected }) => {
@@ -246,7 +242,6 @@ export default function NotFundedPagination(props) {
         previousClassName={"previousButton"}
         nextLinkClassName={"nextButton"}
         activeClassName={"paginationActiveButton"}
-        // forcePage={pageCount === 0 ? pageCount: pageNumber}
         forcePage={pageNumber}
       />
     </>

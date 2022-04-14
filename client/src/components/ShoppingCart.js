@@ -5,14 +5,14 @@ import "./styles/shoppingCart.css";
 
 export default function ShoppingCart(props) {
   const [isChecked, setIsChecked] = useState(false);
-  
-  let payPalOpen = props.payPalOpen
 
-  let setPayPalOpen = props.setPayPalOpen
+  let payPalOpen = props.payPalOpen;
 
-  let totalDonation = props.totalDonation
+  let setPayPalOpen = props.setPayPalOpen;
 
-  let setTotalDonation = props.setTotalDonation
+  let totalDonation = props.totalDonation;
+
+  let setTotalDonation = props.setTotalDonation;
 
   let notFunded = props.notFunded;
 
@@ -88,7 +88,7 @@ export default function ShoppingCart(props) {
   //forcing donation percentage form to close when items are added or removed from cart
   useEffect(() => {
     setIsChecked(false);
-  }, [notFunded])
+  }, [notFunded]);
 
   let checkedBox = () => {
     if (isChecked) {
@@ -99,9 +99,8 @@ export default function ShoppingCart(props) {
   };
 
   let payPal = () => {
-
-    setPayPalOpen(true)
-    setShoppingCartIsOpen(false)
+    setPayPalOpen(true);
+    setShoppingCartIsOpen(false);
 
     console.log("paypal test");
   };
@@ -142,16 +141,13 @@ export default function ShoppingCart(props) {
             />
           )}
 
-
           <Link className="submitContainer" to="#paypal">
-            <button className="addToDonation" 
-            onClick={payPal}>
+            <button className="addToDonation" onClick={payPal}>
               Pay Now!
             </button>
           </Link>
-
         </section>
-        </div>
+      </div>
     </>
   );
 }
