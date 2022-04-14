@@ -25,6 +25,7 @@
     "mailchimp": "^1.2.1",
     "mongoose": "^6.2.10",
     "nodemon": "^2.0.15",
+    "query-string": "^7.1.1",
     "react-mailchimp-subscribe": "^2.1.3"
   }
 }

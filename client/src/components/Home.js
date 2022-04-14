@@ -14,6 +14,9 @@ export default function Home(props) {
   const [totalDonation, setTotalDonation] = useState(0);
   const [payPalOpen, setPayPalOpen] = useState(false);
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
   let isFunded = props.isFunded;
 
@@ -47,6 +50,21 @@ export default function Home(props) {
   useEffect(() => {
     setPayPalOpen(false)
   }, [notFunded])
+
+  function handleFirstName(e) {
+    setFirstName(e.target.value);
+    console.log(e.target.value)
+  }
+
+  function handleLastName(e) {
+    setLastName(e.target.value);
+    console.log(e.target.value)
+  }
+
+  function handleEmail(e) {
+    setEmail(e.target.value);
+    console.log(e.target.value)
+  }
 
   return (
     <>
@@ -92,7 +110,37 @@ export default function Home(props) {
         setShowShoppingCartButton={setShowShoppingCartButton}
       />
     </section>
+
+    <center><div id="mail">
+      <h3>Subscribe to our Newletter</h3>
+      <input
+        type="text"
+        placeholder="First Name"
+        defaultValue={firstName}
+        onChange={handleFirstName}
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        defaultValue={lastName}
+        onChange={handleLastName}
+      />
+      <input
+        type="text"
+        placeholder="Email"
+        defaultValue={email}
+        onChange={handleEmail}
+      />
+
+      <Mail
+        email={email}
+        firstname={firstName}
+        lastname={lastName}
+      />
+      </div></center>
+
       {shoppingCartIsOpen && (
+
         <ShoppingCart
           notFunded={props.notFunded}
           setNotFunded={props.setNotFunded}
@@ -102,10 +150,11 @@ export default function Home(props) {
           setTotalDonation={setTotalDonation}
           setPayPalOpen={setPayPalOpen}
         />
-      )}
-
+        )}
+        
       { payPalOpen && (
       <>
+
       <div id="paypal">
       <PayPal
         totalDonation={totalDonation} 
@@ -116,13 +165,13 @@ export default function Home(props) {
       />
         <center>
           <div id="api">
-          <Mail />
+          
         </div>
       </center>
       </div>
       </>
       )}
       </div>
-    </>
+  </>
   );
 }

@@ -5,7 +5,7 @@ import "./styles/shoppingCart.css";
 
 export default function ShoppingCart(props) {
   const [isChecked, setIsChecked] = useState(false);
-
+  
   let payPalOpen = props.payPalOpen
 
   let setPayPalOpen = props.setPayPalOpen
