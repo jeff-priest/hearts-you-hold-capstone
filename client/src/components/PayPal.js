@@ -20,34 +20,45 @@ export default function PayPal(props) {
 
   let setIsFunded = props.setIsFunded;
 
-  useEffect(() => {
-    async function postData() {
-      let purchasedItems = notFunded.filter((item) => {
-        return item.inShoppingCart === true;
-      });
+  let setSuccessfulPayment = props.setSuccessfulPayment
 
-      console.log(purchasedItems);
+  let setShowShoppingCartButton = props.setShowShoppingCartButton
 
-      purchasedItems = purchasedItems.map((purchasedItem) => {
-        return {
-          ...purchasedItem,
-          inShoppingCart: false,
-          isFunded: true,
-        };
-      });
 
-      console.log(purchasedItems);
+  //UseEffect to update database - this will need to go in the paypal handler function
+  // useEffect(() => {
+  //   async function postData() {
+  //     let purchasedItems = notFunded.filter((item) => {
+  //       return item.inShoppingCart === true;
+  //     });
 
-      let response = await fetch(`http://localhost:8003/donation-cart`, {
-        method: "POST",
-        body: JSON.stringify(purchasedItems),
-        headers: { "Content-Type": "application/json" },
-      });
-      response = await response.json();
-    }
+  //     console.log(purchasedItems);
 
-    postData();
-  }, [notFunded]);
+  //     purchasedItems = purchasedItems.map((purchasedItem) => {
+  //       return {
+  //         ...purchasedItem,
+  //         inShoppingCart: false,
+  //         isFunded: true,
+  //       };
+  //     });
+
+  //     console.log(purchasedItems);
+
+  //     let response = await fetch(`http://localhost:8003/donation-cart`, {
+  //       method: "POST",
+  //       body: JSON.stringify(purchasedItems),
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  //     response = await response.json();
+
+  //     // setSuccessfulPayment(true)
+  //     // setShowShoppingCartButton(false)
+  //   }
+
+  //   postData();
+  // }, [notFunded]);
+
+
 
   // creates a paypal order
   const createOrder = (data, actions) => {

@@ -7,10 +7,32 @@ export default function Funded(props) {
   let notFunded = props.notFunded;
   let pageNumber = props.pageNumber;
   let setPageNumber = props.setPageNumber;
+  let recipientStatesList = props.recipientStatesList
+  let setItemRecipientsState = props.setItemRecipientsState
+
+  let recipientStatesOptionList = [];
+
+
+  recipientStatesOptionList = recipientStatesList.map((state, index) => {
+    return (
+      <option key={`optionCategory-${index}`} value={state}>
+        {state}
+      </option>
+    );
+  });
+
+  let findStateValue = (event) => {
+    let optionState = event.target.value;
+
+    console.log(optionState);
+
+    setItemRecipientsState(optionState);
+    setPageNumber(0);
+  };
 
   let itemCategoriesOptionList = [];
 
-  let findFilterValue = (event) => {
+  let findCategoryValue = (event) => {
     let optionCategory = event.target.value;
 
     console.log(optionCategory);
@@ -30,14 +52,29 @@ export default function Funded(props) {
   return (
     <>
       <div className="searchSectionContainer">
+        <div>
+        <h1 className="categorySearchHeader">Sort By:</h1>
+        </div>
         <div className="categorySearch">
-          <label htmlFor="categorySelect">Search By Item Category:</label>
-          <select id="categorySelect" onChange={findFilterValue}>
-            {/* <option value="" hidden selected>Category</option> */}
+          <label htmlFor="categorySelect">Items Category:</label>
+          <select id="categorySelect" onChange={findCategoryValue}>
+            <option value="" defaultValue hidden>Category</option>
             <option value="all"> All Categories </option>
             {itemCategoriesOptionList}
           </select>
         </div>
+
+        <div className="categorySearch">
+          <label htmlFor="categorySelect">Recipient's State :</label>
+          <select id="categorySelect" onChange={findStateValue}>
+            <option value="" defaultValue hidden>State</option>
+            <option value="all"> All States </option>
+            {recipientStatesOptionList}
+          </select>
+        </div>
+
+
+
       </div>
     </>
   );
