@@ -21,7 +21,8 @@ const requestSchema = new mongoose.Schema({
    recipientHomeOrigin: String,
    dateCreated: Date,
    itemCategory: String,
-
+   recipientState: String,
+   comments: String
 
 })
 

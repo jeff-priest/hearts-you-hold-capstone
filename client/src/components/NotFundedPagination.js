@@ -9,9 +9,11 @@ export default function NotFundedPagination(props) {
   let itemCategory = props.itemCategory;
   let pageNumber = props.pageNumber;
   let setPageNumber = props.setPageNumber;
+  let itemRecipientsState = props.itemRecipientsState
 
   const [donationItemsToDisplay, setDonationItemsToDisplay] = useState("");
   const [notFundedLength, setNotFundedLength] = useState(0);
+  const [noMatchFound, setNotMatchFound] = useState(false)
 
   //function receives object id for each donationItemCard as parameter and maps over the notFunded state and finds the one that matches and changes its inShoppingCart value to true, function then resets notFunded state with new inShoppingCart values
   function addToCart(event, id) {
@@ -208,18 +210,46 @@ export default function NotFundedPagination(props) {
 
   //filters if category is present and creates item list
   useEffect(() => {
-    if (itemCategory !== "all") {
+
+    //searching for both category and state
+    if (itemCategory !== "all" && itemRecipientsState !== "all") {
       notFunded = notFunded.filter((item) => {
-        if (item.itemCategory === itemCategory) {
+        if (item.itemCategory === itemCategory && item.recipientState === itemRecipientsState) {
           return item;
         }
       });
+
+      //searching for just state
+    } else if (itemCategory === "all" && itemRecipientsState !== "all") {
+      notFunded = notFunded.filter((item) => {
+        if (item.recipientState === itemRecipientsState) {
+          return item;
+        }
+      });
+
+      //searching for just category
+    } else if (itemCategory !== "all" && itemRecipientsState === "all") {
+      notFunded = notFunded.filter((item) => {
+        if (item.itemCategory === itemCategory ) {
+          return item;
+    }
+      });
     }
 
+    if(notFunded.length === 0) {
+
+      setNotMatchFound(true)
+
+    } else {
+
+    setNotMatchFound(false)
     setNotFundedLength(notFunded.length);
 
     mapTheItems();
-  }, [notFunded, itemCategory, pageNumber]);
+
+  }
+
+  }, [notFunded, itemCategory, pageNumber, itemRecipientsState]);
 
   let pageCount = Math.ceil(notFundedLength / donationItemsPerPage);
 
@@ -228,9 +258,13 @@ export default function NotFundedPagination(props) {
     setPageNumber(selected);
   };
 
+  let noMatch = (<>
+    <li className="donationCard" id="noListing">No Listings Found</li>
+    </>);
+
   return (
     <>
-      <ul>{donationItemsToDisplay}</ul>
+      <ul>{ noMatchFound ? noMatch: donationItemsToDisplay }</ul>
 
       <ReactPaginate
         previousLabel={"Previous"}

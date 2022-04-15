@@ -64,6 +64,7 @@ export default function ShoppingCart(props) {
       }
     });
     setNotFunded(removedItem);
+    setIsChecked(false)
   }
 
   let shoppingCart = shoppingCartItem.map((item, index) => {
@@ -101,8 +102,6 @@ export default function ShoppingCart(props) {
   let payPal = () => {
     setPayPalOpen(true);
     setShoppingCartIsOpen(false);
-
-    console.log("paypal test");
   };
 
   return (
@@ -143,7 +142,7 @@ export default function ShoppingCart(props) {
 
           <Link className="submitContainer" to="#paypal">
             <button className="addToDonation" onClick={payPal}>
-              Pay Now!
+              Process To Checkout!
             </button>
           </Link>
         </section>

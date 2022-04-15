@@ -27,6 +27,7 @@ app.get("/", async (request, response) => {
 
   let isFunded = await Request.find({ isFunded: true });
 
+  //Categories Filter Info
   let itemCategories = notFunded.map((item) => {
     return item.itemCategory;
   });
@@ -35,15 +36,25 @@ app.get("/", async (request, response) => {
 
   itemCategories = [...itemCategorySet];
 
+  //State Filter Info
+
+  let recipientStates = notFunded.map((item) => {
+    return item.recipientState;
+  });
+
+  let recipientStatesSet = new Set(recipientStates);
+
+  recipientStates = [...recipientStatesSet];
+
   let fundedArray = [notFunded, isFunded];
 
-  response.json([fundedArray, itemCategories]);
+  response.json([fundedArray, itemCategories, recipientStates]);
+  
 });
 
 app.post("/donation-cart", async (request, response) => {
   let itemsToChange = request.body;
 
-  console.log(itemsToChange);
   let changedItems = [];
 
   for (let i = 0; i < itemsToChange.length; i++) {

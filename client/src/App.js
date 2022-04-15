@@ -11,6 +11,8 @@ export default function App() {
   const [notFunded, setNotFunded] = useState([]);
   const [isFunded, setIsFunded] = useState([]);
   const [itemCategoriesList, setItemCategoriesList] = useState([]);
+  const [recipientStatesList, setRecipientStatesList] = useState([]);
+  const [successfulPayment, setSuccessfulPayment] = useState(false);
 
   //fetching isFunded = false items from DB
   useEffect(() => {
@@ -22,6 +24,8 @@ export default function App() {
       response = await response.json();
 
       setItemCategoriesList(response[1]);
+
+      setRecipientStatesList(response[2]);
 
       response = response[0];
 
@@ -59,7 +63,7 @@ export default function App() {
     return () => {
       isConnectedToServer = false;
     };
-  }, []);
+  }, [ , successfulPayment]);
 
   return (
     <>
@@ -74,6 +78,8 @@ export default function App() {
                 isFunded={isFunded}
                 setIsFunded={setIsFunded}
                 itemCategoriesList={itemCategoriesList}
+                recipientStatesList={recipientStatesList}
+                setSuccessfulPayment={setSuccessfulPayment}
               />
             }
           />

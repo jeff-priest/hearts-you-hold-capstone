@@ -15,6 +15,7 @@ export default function Home(props) {
   const [totalDonation, setTotalDonation] = useState(0);
   const [payPalOpen, setPayPalOpen] = useState(false);
   const [itemCategory, setItemCategory] = useState("all");
+  const [itemRecipientsState, setItemRecipientsState] = useState("all")
 
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -29,6 +30,10 @@ export default function Home(props) {
   let notFunded = props.notFunded;
 
   let setNotFunded = props.setNotFunded;
+
+  let recipientStatesList = props.recipientStatesList
+
+  let setSuccessfulPayment = props.setSuccessfulPayment
 
   let openShoppingCart = () => {
     setShoppingCartIsOpen(true);
@@ -93,6 +98,8 @@ export default function Home(props) {
             notFunded={notFunded}
             pageNumber={pageNumber}
             setPageNumber={setPageNumber}
+            recipientStatesList={recipientStatesList}
+            setItemRecipientsState={setItemRecipientsState}
           />
 
           <NotFundedPagination
@@ -102,6 +109,7 @@ export default function Home(props) {
             itemCategory={itemCategory}
             pageNumber={pageNumber}
             setPageNumber={setPageNumber}
+            itemRecipientsState={itemRecipientsState}
           />
         </section>
         {shoppingCartIsOpen && (
@@ -125,6 +133,8 @@ export default function Home(props) {
                 setNotFunded={setNotFunded}
                 setIsFunded={setIsFunded}
                 isFunded={isFunded}
+                setSuccessfulPayment={setSuccessfulPayment}
+                setShowShoppingCartButton={setShowShoppingCartButton}
               />
               <center>
                 <div id="api">
