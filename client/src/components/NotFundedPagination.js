@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import ScrollToTop from "./ScrollToTop";
 import "./styles/pagination.css";
 
 export default function NotFundedPagination(props) {
@@ -55,13 +56,13 @@ export default function NotFundedPagination(props) {
 
   function descriptionSlice(itemDescription) {
     //if the description is less than 20 characters, show the whole description
-    if (itemDescription.length < 20) {
+    if (itemDescription.length < 300) {
       viewedDescription = itemDescription;
       return viewedDescription;
 
       //if it is over 20
     } else {
-      for (let i = 20; i <= itemDescription.length; i++) {
+      for (let i = 300; i <= itemDescription.length; i++) {
         let character = itemDescription.charAt(i);
 
         //for a description that is over 20 characters but doesn't have a space between 20 and its total length
@@ -83,7 +84,7 @@ export default function NotFundedPagination(props) {
   }
 
   //pagination
-  let donationItemsPerPage = 2;
+  let donationItemsPerPage = 25;
 
   let pagesVisited = pageNumber * donationItemsPerPage;
 
@@ -118,7 +119,7 @@ export default function NotFundedPagination(props) {
         let readMoreDescription = (
           //if the description is over 20 characters show the read more button
           <>
-            {viewedDescription.length > 20 ? (
+            {viewedDescription.length > 300 ? (
               <>
                 {viewedDescription}
                 <button
@@ -197,7 +198,7 @@ export default function NotFundedPagination(props) {
                   <h4 className="cardRecipientName">
                     {donationItemCard.recipientName}
                   </h4>
-                  <div className="cardLocation">{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
+                  <div className="cardLocation">{`${donationItemCard.recipientUSLocation}`}</div>
                 </div>
               </section>
             </div>
@@ -256,6 +257,9 @@ export default function NotFundedPagination(props) {
   //selected is the number for the page we want to move to, built in paginate
   let changePage = ({ selected }) => {
     setPageNumber(selected);
+    return (<>
+         {window.scrollTo(0, 0)}
+        </>)
   };
 
   let noMatch = (<>
@@ -277,6 +281,8 @@ export default function NotFundedPagination(props) {
         nextLinkClassName={"nextButton"}
         activeClassName={"paginationActiveButton"}
         forcePage={pageNumber}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={0}
       />
     </>
   );

@@ -114,6 +114,8 @@ ul {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
+  width: 50%;
+  text-align: right;
 }
 
 #noListing {
@@ -133,5 +135,17 @@ ul {
 
   .cardPriceReceipientLocation {
     width: 30%;
+  }
+
+  .cardRecipientName {
+    text-align: right;
+  }
+
+  .cardLocation {
+    text-align: right;
+  }
+
+  .cardRecipientContainer {
+    width: 100%;
   }
 }
