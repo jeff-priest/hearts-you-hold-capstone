@@ -140,12 +140,6 @@ export default function ShoppingCart(props) {
               notFunded={notFunded}
             />
           )}
-
-          <Link className="submitContainer" to="#paypal">
-            <button className="addToDonation" onClick={payPal}>
-              Process To Checkout!
-            </button>
-          </Link>
         </section>
       </div>
       <Forum />

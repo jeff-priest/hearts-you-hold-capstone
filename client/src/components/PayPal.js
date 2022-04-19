@@ -93,6 +93,7 @@ export default function PayPal(props) {
 
   return (
     <>
+    <h1>CHECK OUT</h1>
       <div class="checkoutPaypal">
         <div id="item-0">
         <PayPalScriptProvider
