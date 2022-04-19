@@ -35,13 +35,13 @@ export default function Funded(props) {
 
   function descriptionSlice(itemDescription) {
     //if the description is less than 20 characters, show the whole description
-    if (itemDescription.length < 20) {
+    if (itemDescription.length < 300) {
       viewedDescription = itemDescription;
       return viewedDescription;
 
       //if it is over 20
     } else {
-      for (let i = 20; i <= itemDescription.length; i++) {
+      for (let i = 300; i <= itemDescription.length; i++) {
         let character = itemDescription.charAt(i);
 
         //for a description that is over 20 characters but doesn't have a space between 20 and its total length
@@ -66,7 +66,7 @@ export default function Funded(props) {
   const [pageNumber, setPageNumber] = useState(0);
 
   //number of items on each page
-  let donationItemsPerPage = 1;
+  let donationItemsPerPage = 25;
 
   //page number state multiplied by how many items appear on each page
   let pagesVisited = pageNumber * donationItemsPerPage;
@@ -99,7 +99,7 @@ export default function Funded(props) {
       let readMoreDescription = (
         //if the description is over 20 characters show the read more button
         <>
-          {viewedDescription.length > 20 ? (
+          {viewedDescription.length > 300 ? (
             <>
               {viewedDescription}
               <button
@@ -140,14 +140,14 @@ export default function Funded(props) {
             {/* contents for right side of item card*/}
             <section className="cardPriceReceipientLocation">
               <div className="cardItemPriceContainer">
-                <h2 className="cardItemPrice">{`$${donationItemCard.itemPrice}`}</h2>
+                <h2 className="cardItemPrice">{`$${donationItemCard.itemPriceRoundedUp}`}</h2>
               </div>
 
               <div className="cardRecipientContainer">
                 <h4 className="cardRecipientName">
                   {donationItemCard.recipientName}
                 </h4>
-                <div className="cardLocation">{`${donationItemCard.recipientUSLocation} - ${donationItemCard.recipientHomeOrigin}`}</div>
+                <div className="cardLocation">{`${donationItemCard.recipientUSLocation}`}</div>
               </div>
             </section>
           </div>
@@ -201,6 +201,8 @@ export default function Funded(props) {
           previousClassName={"previousButton"}
           nextLinkClassName={"nextButton"}
           activeClassName={"paginationActiveButton"}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={0}
         />
       </div>
     </>

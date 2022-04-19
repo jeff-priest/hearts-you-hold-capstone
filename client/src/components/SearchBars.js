@@ -35,8 +35,6 @@ export default function Funded(props) {
   let findCategoryValue = (event) => {
     let optionCategory = event.target.value;
 
-    console.log(optionCategory);
-
     setItemCategory(optionCategory);
     setPageNumber(0);
   };

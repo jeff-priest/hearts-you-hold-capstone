@@ -20,45 +20,9 @@ export default function PayPal(props) {
 
   let setIsFunded = props.setIsFunded;
 
-  let setSuccessfulPayment = props.setSuccessfulPayment
+  let setSuccessfulPayment = props.setSuccessfulPayment;
 
-  let setShowShoppingCartButton = props.setShowShoppingCartButton
-
-
-  //UseEffect to update database - this will need to go in the paypal handler function
-  // useEffect(() => {
-  //   async function postData() {
-  //     let purchasedItems = notFunded.filter((item) => {
-  //       return item.inShoppingCart === true;
-  //     });
-
-  //     console.log(purchasedItems);
-
-  //     purchasedItems = purchasedItems.map((purchasedItem) => {
-  //       return {
-  //         ...purchasedItem,
-  //         inShoppingCart: false,
-  //         isFunded: true,
-  //       };
-  //     });
-
-  //     console.log(purchasedItems);
-
-  //     let response = await fetch(`http://localhost:8003/donation-cart`, {
-  //       method: "POST",
-  //       body: JSON.stringify(purchasedItems),
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-  //     response = await response.json();
-
-  //     // setSuccessfulPayment(true)
-  //     // setShowShoppingCartButton(false)
-  //   }
-
-  //   postData();
-  // }, [notFunded]);
-
-
+  let setShowShoppingCartButton = props.setShowShoppingCartButton;
 
   // creates a paypal order
   const createOrder = (data, actions) => {
@@ -83,6 +47,39 @@ export default function PayPal(props) {
 
   // check Approval
   const onApprove = (data, actions) => {
+
+
+      async function postData() {
+        let purchasedItems = notFunded.filter((item) => {
+          return item.inShoppingCart === true;
+        });
+
+        console.log(purchasedItems);
+
+        purchasedItems = purchasedItems.map((purchasedItem) => {
+          return {
+            ...purchasedItem,
+            inShoppingCart: false,
+            isFunded: true,
+          };
+        });
+
+        console.log(purchasedItems);
+
+        let response = await fetch(`http://localhost:8003/donation-cart`, {
+          method: "POST",
+          body: JSON.stringify(purchasedItems),
+          headers: { "Content-Type": "application/json" },
+        });
+        response = await response.json();
+
+        setSuccessfulPayment(true);
+        setShowShoppingCartButton(false);
+      }
+
+      postData();
+
+
     return actions.order.capture().then(function (details) {
       const { payer } = details;
       setSuccess(true);

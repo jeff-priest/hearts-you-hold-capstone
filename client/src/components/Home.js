@@ -16,7 +16,6 @@ export default function Home(props) {
   const [payPalOpen, setPayPalOpen] = useState(false);
   const [itemCategory, setItemCategory] = useState("all");
   const [itemRecipientsState, setItemRecipientsState] = useState("all")
-
   const [pageNumber, setPageNumber] = useState(0);
 
   let itemCategoriesList = props.itemCategoriesList;

@@ -25,9 +25,20 @@ const Request = mongoose.model("RequestItem", requestSchema);
 app.get("/", async (request, response) => {
   let notFunded = await Request.find({ isFunded: false });
 
+  //setting comments to null for front-end privacy
+  notFunded = notFunded.map((item) => {
+    item.comments = null;
+    return item;
+  });
+
   let isFunded = await Request.find({ isFunded: true });
 
-  //Categories Filter Info
+  isFunded = isFunded.map((item) => {
+    item.comments = null;
+    return item;
+  });
+
+  //categories filter
   let itemCategories = notFunded.map((item) => {
     return item.itemCategory;
   });
@@ -36,8 +47,10 @@ app.get("/", async (request, response) => {
 
   itemCategories = [...itemCategorySet];
 
-  //State Filter Info
+  //dropping null from category search
+  itemCategories = itemCategories.filter((item) => item !== null);
 
+  //recipient's state filter
   let recipientStates = notFunded.map((item) => {
     return item.recipientState;
   });
@@ -46,12 +59,15 @@ app.get("/", async (request, response) => {
 
   recipientStates = [...recipientStatesSet];
 
+  //dropping null from state search
+  recipientStates = recipientStates.filter((item) => item !== null);
+
   let fundedArray = [notFunded, isFunded];
 
   response.json([fundedArray, itemCategories, recipientStates]);
-  
 });
 
+//successful payment - changes isFunded value
 app.post("/donation-cart", async (request, response) => {
   let itemsToChange = request.body;
 

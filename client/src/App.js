@@ -7,14 +7,14 @@ import "./normalizer.css";
 import "./Styles.css";
 
 export default function App() {
-  //state holding json isFunded = false list
+
   const [notFunded, setNotFunded] = useState([]);
   const [isFunded, setIsFunded] = useState([]);
   const [itemCategoriesList, setItemCategoriesList] = useState([]);
   const [recipientStatesList, setRecipientStatesList] = useState([]);
   const [successfulPayment, setSuccessfulPayment] = useState(false);
 
-  //fetching isFunded = false items from DB
+
   useEffect(() => {
     let isConnectedToServer = true;
 
@@ -32,6 +32,18 @@ export default function App() {
       let notFundedVariable = response[0];
 
       let fundedVariable = response[1];
+
+      fundedVariable = fundedVariable.map((fundedObject, index) => {
+        
+        let donationItemPrice = fundedObject.itemPrice;
+
+        donationItemPrice = Math.ceil(donationItemPrice);
+
+        return {
+          ...fundedObject,
+          itemPriceRoundedUp: donationItemPrice,
+        };
+      });
 
       //mapping over response object to add inShoppingCart = false - key-value
       notFundedVariable = notFundedVariable.map((notFundedObject, index) => {
