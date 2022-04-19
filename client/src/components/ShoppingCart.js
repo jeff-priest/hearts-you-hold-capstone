@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
 import Percentage from "./Percentage.js";
+import Forum from "./Forum.js"
 import "./styles/shoppingCart.css";
 
 export default function ShoppingCart(props) {
@@ -147,6 +148,13 @@ export default function ShoppingCart(props) {
           </Link>
         </section>
       </div>
+      <Forum />
+      <Link 
+          className="submitContainer" to="#paypal">
+            <button className="addToDonation" onClick={payPal}>
+              Procceed To Checkout!
+            </button>
+      </Link> 
     </>
   );
 }

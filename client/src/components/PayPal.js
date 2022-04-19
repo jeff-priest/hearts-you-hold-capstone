@@ -1,7 +1,7 @@
 // testing branches
 import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import "./styles/api.css";
+import "./styles/paypal.css";
 
 export default function PayPal(props) {
   const amount = props.totalDonation;
@@ -92,27 +92,37 @@ export default function PayPal(props) {
   };
 
   return (
-    <PayPalScriptProvider
-      options={{
-        "client-id":
-          "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
-      }}
-    >
-      <div className="wrapper">{successMessage}</div>
-      <PayPalButtons
-        style={{ layout: "horizontal" }}
-        fundingSource="paypal"
-        createOrder={createOrder}
-        onApprove={onApprove}
-      />
-      ,
-      <PayPalButtons
-        style={{ layout: "horizontal" }}
-        fundingSource="card"
-        createOrder={createOrder}
-        onApprove={onApprove}
-      />
-      ,
-    </PayPalScriptProvider>
+    <>
+      <div class="checkoutPaypal">
+        <div id="item-0">
+        <PayPalScriptProvider
+        options={{
+          "client-id":
+            "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
+        }}
+      >
+        <div>{successMessage}</div>
+        <PayPalButtons
+          style={{ layout: "vertical" }}
+          fundingSource="paypal"
+          createOrder={createOrder}
+          onApprove={onApprove}
+        />
+        ,
+        <PayPalButtons
+          style={{ layout: "vertical" }}
+          fundingSource="card"
+          createOrder={createOrder}
+          onApprove={onApprove}
+        />
+      </PayPalScriptProvider>
+        </div>
+
+        <div id="item-1">
+          <h1>Checkout amount</h1>
+          <h3>$ {amount}</h3>
+        </div>
+      </div>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import ShoppingCart from "./ShoppingCart.js";
 import NotFundedPagination from "./NotFundedPagination.js";
 import PayPal from "./PayPal.js";
-import Mail from "./Mail.js";
+import Mail from "./MailChimpAPI.js";
 import SearchBars from "./SearchBars.js";
 import ScrollToTop from "./ScrollToTop.js";
 import "./styles/home.css";
@@ -111,6 +111,7 @@ export default function Home(props) {
             itemRecipientsState={itemRecipientsState}
           />
         </section>
+
         {shoppingCartIsOpen && (
           <ShoppingCart
             notFunded={props.notFunded}
@@ -135,16 +136,9 @@ export default function Home(props) {
                 setSuccessfulPayment={setSuccessfulPayment}
                 setShowShoppingCartButton={setShowShoppingCartButton}
               />
-              <center>
-                <div id="api">
-                  <Mail />
-                </div>
-              </center>
             </div>
           </>
         )}
-
-        <Mail />
       </div>
     </>
   );
