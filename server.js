@@ -25,18 +25,47 @@ const Request = mongoose.model("RequestItem", requestSchema);
 app.get("/", async (request, response) => {
   let notFunded = await Request.find({ isFunded: false });
 
-  //setting comments to null for front-end privacy
+  //building items for front-end response
   notFunded = notFunded.map((item) => {
-    item.comments = null;
+
+    item = {
+    
+    _id: item._id,
+    itemName: item.itemName,
+    itemPrice: item.itemPrice,
+    donationDescription: item.donationDescription,
+    isFunded: item.isFunded,
+    recipientName: item.recipientName,
+    recipientUSLocation: item.recipientUSLocation,
+    dateCreated: item.dateCreated, 
+    itemCategory: item.itemCategory, 
+    recipientState: item.recipientState, 
+
+  }
+
     return item;
   });
 
   let isFunded = await Request.find({ isFunded: true });
 
   isFunded = isFunded.map((item) => {
-    item.comments = null;
-    return item;
-  });
+    item = {
+    
+      _id: item._id,
+      itemName: item.itemName,
+      itemPrice: item.itemPrice,
+      donationDescription: item.donationDescription,
+      isFunded: item.isFunded,
+      recipientName: item.recipientName,
+      recipientUSLocation: item.recipientUSLocation,
+      dateCreated: item.dateCreated, 
+      itemCategory: item.itemCategory, 
+      recipientState: item.recipientState, 
+  
+    }
+  
+      return item;
+    });
 
   //categories filter
   let itemCategories = notFunded.map((item) => {
