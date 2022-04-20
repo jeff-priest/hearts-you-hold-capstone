@@ -59,6 +59,7 @@ export default function App() {
           inShoppingCart: false,
           readMoreOpen: false,
           itemPricePlusFifteen: donationItemPrice,
+          categorySelected: false
         };
       });
 
@@ -76,6 +77,8 @@ export default function App() {
       isConnectedToServer = false;
     };
   }, [ , successfulPayment]);
+
+  console.log(notFunded, isFunded);
 
   return (
     <>
