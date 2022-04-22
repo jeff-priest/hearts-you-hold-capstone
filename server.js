@@ -1,19 +1,75 @@
 //-----BOILER PLATE -- CONNECTING TO EXPRESS SERVER ------//
 const express = require("express");
 const mongoose = require("mongoose");
+const router = express.Router();
+const nodemailer = require("nodemailer");
 const cors = require("cors");
 const port = process.env.PORT || 8003;
 const host = process.env.PORT || 8003;
 require("dotenv").config();
-const app = express();
 
+const app = express();
 app.use(cors());
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/Form", router);
+
 //-------END BOILER PLATE----------------------//
+
+const contactEmail = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.nodeEmail,
+    pass: process.env.nodePassword,
+  },
+});
+
+contactEmail.verify((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Ready to Send");
+  }
+});
+
+router.post("/contact", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const message = req.body.message; 
+  // const DonationAmount = ;
+  // const hearAboutUs = ;
+  // const addToEmail = ;
+  // const listYourName = ;
+  // const blurb = ;
+
+  const mail = {
+    from: name,
+    to: "ryangwork22@gmail.com",
+    subject: "Contact Form Submission",
+    html: `<p>Name: ${name}</p>
+           <p>Email: ${email}</p>
+           <p>Message: ${message}</p>
+           <p>DonationAmount: </p>
+           <p>How did you hear about us?: </p>
+           <p>Would you like to be added to the mailing list?: </p>
+           <p>Can we list your name on the website?: </p>
+           <p>Would you be willing to post a blurb?: </p>
+           `
+
+};
+
+  contactEmail.sendMail(mail, (error) => {
+    if (error) {
+      res.json({ status: "ERROR" });
+    } else {
+      res.json({ status: "Message Sent" });
+    }
+  });
+});
+
 
 //bringing in schema
 const requestSchema = require("./data.js");
@@ -115,5 +171,5 @@ app.post("/donation-cart", async (request, response) => {
 });
 
 app.listen(port, host, () => {
-  console.log("listening on port: " + port + " and host: " + host);
+  console.log("listening on port: " + port + " and host: " + host );
 });

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { HashLink as Link } from "react-router-hash-link";
 import Percentage from "./Percentage.js";
-import Forum from "./Forum.js";
+import Form from "./Form.js";
 import "./styles/shoppingCart.css";
 
 export default function ShoppingCart({
@@ -12,6 +11,7 @@ export default function ShoppingCart({
   setNotFunded,
   setShowShoppingCartButton,
   setShoppingCartIsOpen,
+  setFormData,
 }) {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -134,12 +134,10 @@ export default function ShoppingCart({
           )}
         </section>
       </div>
-      <Forum />
-      <Link className="submitContainer" to="#paypal">
-        <button className="addToDonation" onClick={payPal}>
-          Procceed To Checkout!
-        </button>
-      </Link>
+      <Form 
+      setFormData={setFormData}
+      payPal={payPal}
+      />
     </>
   );
 }

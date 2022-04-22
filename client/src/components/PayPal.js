@@ -1,4 +1,3 @@
-// testing branches
 import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./styles/paypal.css";
@@ -8,6 +7,7 @@ export default function PayPal({
   setSuccessfulPayment,
   setShowShoppingCartButton,
   totalDonation,
+  formData
 }) {
   const amount = totalDonation;
 
@@ -16,6 +16,7 @@ export default function PayPal({
 
   async function postData() {
     setPayPalDisplayError(false);
+    console.log("it worked");
 
     let purchasedItems = notFunded.filter((item) => {
       return item.inShoppingCart === true;
@@ -31,7 +32,7 @@ export default function PayPal({
 
     let response = await fetch(`http://localhost:8003/donation-cart`, {
       method: "POST",
-      body: JSON.stringify(purchasedItems),
+      body: JSON.stringify([purchasedItems, formData, amount]),
       headers: { "Content-Type": "application/json" },
     });
     response = await response.json();
@@ -42,7 +43,6 @@ export default function PayPal({
 
   // creates a paypal order
   const createOrder = (data, actions) => {
-    console.log(typeof amount, amount);
     return actions.order
       .create({
         // combination of amount and currency
@@ -65,7 +65,6 @@ export default function PayPal({
     return actions.order.capture().then(function (details) {
       const { payer } = details;
       setSuccessMessage("Successful Purchase");
-
       postData();
     });
   };
@@ -87,7 +86,7 @@ export default function PayPal({
         </>
       )}
 
-      <div class="checkoutPaypal">
+      <div className="checkoutPaypal">
         <div id="item-0">
           <PayPalScriptProvider
             options={{
