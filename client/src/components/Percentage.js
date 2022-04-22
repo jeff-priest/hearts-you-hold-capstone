@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./styles/shoppingCart.css";
 
-export default function Percentages(props) {
-  let notFunded = props.notFunded;
-  let setTotalDonation = props.setTotalDonation;
-
+export default function Percentages({ notFunded, setTotalDonation }) {
   //finding all the in cart items
   let shoppingCartItem = notFunded.filter((item) => {
     return item.inShoppingCart === true;

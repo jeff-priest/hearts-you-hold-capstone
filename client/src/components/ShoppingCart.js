@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
 import Percentage from "./Percentage.js";
-import Forum from "./Forum.js"
+import Forum from "./Forum.js";
 import "./styles/shoppingCart.css";
 
-export default function ShoppingCart(props) {
+export default function ShoppingCart({
+  setPayPalOpen,
+  totalDonation,
+  setTotalDonation,
+  notFunded,
+  setNotFunded,
+  setShowShoppingCartButton,
+  setShoppingCartIsOpen,
+}) {
   const [isChecked, setIsChecked] = useState(false);
-
-  let payPalOpen = props.payPalOpen;
-
-  let setPayPalOpen = props.setPayPalOpen;
-
-  let totalDonation = props.totalDonation;
-
-  let setTotalDonation = props.setTotalDonation;
-
-  let notFunded = props.notFunded;
-
-  let setNotFunded = props.setNotFunded;
-
-  let setShowShoppingCartButton = props.setShowShoppingCartButton;
-
-  let setShoppingCartIsOpen = props.setShoppingCartIsOpen;
 
   //changing inShoppingCart value to true
   let shoppingCartItem = notFunded.filter((item) => {
@@ -65,7 +57,7 @@ export default function ShoppingCart(props) {
       }
     });
     setNotFunded(removedItem);
-    setIsChecked(false)
+    setIsChecked(false);
   }
 
   let shoppingCart = shoppingCartItem.map((item, index) => {
@@ -143,12 +135,11 @@ export default function ShoppingCart(props) {
         </section>
       </div>
       <Forum />
-      <Link 
-          className="submitContainer" to="#paypal">
-            <button className="addToDonation" onClick={payPal}>
-              Procceed To Checkout!
-            </button>
-      </Link> 
+      <Link className="submitContainer" to="#paypal">
+        <button className="addToDonation" onClick={payPal}>
+          Procceed To Checkout!
+        </button>
+      </Link>
     </>
   );
 }

@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import ScrollToTop from "./ScrollToTop";
 import "./styles/pagination.css";
 
-export default function NotFundedPagination(props) {
-  let notFunded = props.notFunded;
-  let setNotFunded = props.setNotFunded;
-  let setShowShoppingCartButton = props.setShowShoppingCartButton;
-  let itemCategory = props.itemCategory;
-  let pageNumber = props.pageNumber;
-  let setPageNumber = props.setPageNumber;
-  let itemRecipientsState = props.itemRecipientsState;
-
+export default function NotFundedPagination({
+  notFunded,
+  setNotFunded,
+  setShowShoppingCartButton,
+  itemCategory,
+  pageNumber,
+  setPageNumber,
+  itemRecipientsState,
+}) {
   const [donationItemsToDisplay, setDonationItemsToDisplay] = useState("");
   const [notFundedLength, setNotFundedLength] = useState(0);
   const [noMatchFound, setNotMatchFound] = useState(false);
@@ -93,11 +92,14 @@ export default function NotFundedPagination(props) {
   //creates item list
   function mapTheItems() {
     //slices the section from the total list of items that corresponds to page number
-    displayDonationItems = notFunded.filter((item)=>{
-      if(item.categorySelected === true) {
-        return item
-      }
-    }).slice(pagesVisited, pagesVisited + donationItemsPerPage).map((donationItemCard, index) => {
+    displayDonationItems = notFunded
+      .filter((item) => {
+        if (item.categorySelected === true) {
+          return item;
+        }
+      })
+      .slice(pagesVisited, pagesVisited + donationItemsPerPage)
+      .map((donationItemCard, index) => {
         //this variable is a placeholder idea for limiting the description size
 
         descriptionSlice(donationItemCard.donationDescription);
@@ -213,9 +215,6 @@ export default function NotFundedPagination(props) {
 
   //filters if category is present and creates item list
   useEffect(() => {
-    console.log(itemCategory, itemRecipientsState);
-    console.log(notFunded);
-
     //searching for both category and state
     if (itemCategory !== "all" && itemRecipientsState !== "all") {
       notFunded = notFunded.map((item) => {
@@ -248,31 +247,23 @@ export default function NotFundedPagination(props) {
           return { ...item, categorySelected: false };
         }
       });
-      
     } else if (itemCategory === "all" && itemRecipientsState === "all") {
       notFunded = notFunded.map((item) => {
-          return { ...item, categorySelected: true };
-      }) 
-
+        return { ...item, categorySelected: true };
+      });
     }
-    console.log(notFunded);
 
     let lengthOfFilter = notFunded.filter((item) => {
-      if(item.categorySelected === true) {
-        return item
+      if (item.categorySelected === true) {
+        return item;
       }
     });
-
-    console.log(lengthOfFilter.length);
 
     if (lengthOfFilter.length === 0) {
       setNotMatchFound(true);
     } else {
       setNotMatchFound(false);
       setNotFundedLength(lengthOfFilter.length);
-
-
-      console.log(notFunded);
 
       mapTheItems();
     }
@@ -288,9 +279,7 @@ export default function NotFundedPagination(props) {
 
   let noMatch = (
     <>
-      <li className="donationCard" id="noListing">
-        No Listings Found
-      </li>
+      <li className="donationCard noListing">No Listings Found</li>
     </>
   );
 

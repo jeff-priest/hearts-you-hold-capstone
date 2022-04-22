@@ -1,28 +1,44 @@
 // testing branches
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import "./styles/paypal.css";
 
-export default function PayPal(props) {
-  const amount = props.totalDonation;
+export default function PayPal({
+  notFunded,
+  setSuccessfulPayment,
+  setShowShoppingCartButton,
+  totalDonation,
+}) {
+  const amount = totalDonation;
 
-  const [show, setShow] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [ErrorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [orderID, setOrderID] = useState(false);
+  const [payPalDisplayError, setPayPalDisplayError] = useState(false);
 
-  let notFunded = props.notFunded;
+  async function postData() {
+    setPayPalDisplayError(false);
 
-  let setNotFunded = props.setNotFunded;
+    let purchasedItems = notFunded.filter((item) => {
+      return item.inShoppingCart === true;
+    });
 
-  let isFunded = props.isFunded;
+    purchasedItems = purchasedItems.map((purchasedItem) => {
+      return {
+        ...purchasedItem,
+        inShoppingCart: false,
+        isFunded: true,
+      };
+    });
 
-  let setIsFunded = props.setIsFunded;
+    let response = await fetch(`http://localhost:8003/donation-cart`, {
+      method: "POST",
+      body: JSON.stringify(purchasedItems),
+      headers: { "Content-Type": "application/json" },
+    });
+    response = await response.json();
 
-  let setSuccessfulPayment = props.setSuccessfulPayment;
-
-  let setShowShoppingCartButton = props.setShowShoppingCartButton;
+    setSuccessfulPayment(true);
+    setShowShoppingCartButton(false);
+  }
 
   // creates a paypal order
   const createOrder = (data, actions) => {
@@ -40,83 +56,62 @@ export default function PayPal(props) {
         ],
       })
       .then((orderID) => {
-        setOrderID(orderID);
         return orderID;
       });
   };
 
   // check Approval
   const onApprove = (data, actions) => {
-
-
-      async function postData() {
-        let purchasedItems = notFunded.filter((item) => {
-          return item.inShoppingCart === true;
-        });
-
-        console.log(purchasedItems);
-
-        purchasedItems = purchasedItems.map((purchasedItem) => {
-          return {
-            ...purchasedItem,
-            inShoppingCart: false,
-            isFunded: true,
-          };
-        });
-
-        console.log(purchasedItems);
-
-        let response = await fetch(`http://localhost:8003/donation-cart`, {
-          method: "POST",
-          body: JSON.stringify(purchasedItems),
-          headers: { "Content-Type": "application/json" },
-        });
-        response = await response.json();
-
-        setSuccessfulPayment(true);
-        setShowShoppingCartButton(false);
-      }
-
-      postData();
-
-
     return actions.order.capture().then(function (details) {
       const { payer } = details;
-      setSuccess(true);
       setSuccessMessage("Successful Purchase");
+
+      postData();
     });
   };
   //capture errors if one occurs
   const onError = (data, actions) => {
-    setErrorMessage("An Error occured with your payment");
+    setPayPalDisplayError(true);
   };
 
   return (
     <>
-    <h1>CHECK OUT</h1>
+      <h1>CHECK OUT</h1>
+
+      {payPalDisplayError && (
+        <>
+          <p className="donationCard noListing">
+            We're sorry. Something went wrong while processing your payment.
+            Please try again!
+          </p>
+        </>
+      )}
+
       <div class="checkoutPaypal">
         <div id="item-0">
-        <PayPalScriptProvider
-        options={{
-          "client-id":
-            "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
-        }}
-      >
-        <div>{successMessage}</div>
-        <PayPalButtons
-          style={{ layout: "vertical" }}
-          fundingSource="paypal"
-          createOrder={createOrder}
-          onApprove={onApprove}
-        />
-        ,
-        <PayPalButtons
-          style={{ layout: "vertical" }}
-          fundingSource="card"
-          createOrder={createOrder}
-          onApprove={onApprove}
-        />
-      </PayPalScriptProvider>
+          <PayPalScriptProvider
+            options={{
+              "client-id":
+                "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
+            }}
+          >
+            <div>{successMessage}</div>
+            <PayPalButtons
+              style={{ layout: "vertical" }}
+              fundingSource="paypal"
+              createOrder={createOrder}
+              onApprove={onApprove}
+              onError={onError}
+            />
+            ,
+            <PayPalButtons
+              style={{ layout: "vertical" }}
+              fundingSource="card"
+              createOrder={createOrder}
+              onApprove={onApprove}
+              onError={onError}
+            />
+          </PayPalScriptProvider>
         </div>
 
         <div id="item-1">

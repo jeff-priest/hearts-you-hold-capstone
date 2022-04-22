@@ -23,92 +23,95 @@ const Request = mongoose.model("RequestItem", requestSchema);
 
 //getting data and filtering it based on isFunded value and sending it in response as an array for client state
 app.get("/", async (request, response) => {
-  let notFunded = await Request.find({ isFunded: false });
+  try {
+    let notFunded = await Request.find({ isFunded: false });
 
-  //building items for front-end response
-  notFunded = notFunded.map((item) => {
+    //building items for front-end response
+    notFunded = notFunded.map((item) => {
+      item = {
+        _id: item._id,
+        itemName: item.itemName,
+        itemPrice: item.itemPrice,
+        donationDescription: item.donationDescription,
+        isFunded: item.isFunded,
+        recipientName: item.recipientName,
+        recipientUSLocation: item.recipientUSLocation,
+        dateCreated: item.dateCreated,
+        itemCategory: item.itemCategory,
+        recipientState: item.recipientState,
+      };
 
-    item = {
-    
-    _id: item._id,
-    itemName: item.itemName,
-    itemPrice: item.itemPrice,
-    donationDescription: item.donationDescription,
-    isFunded: item.isFunded,
-    recipientName: item.recipientName,
-    recipientUSLocation: item.recipientUSLocation,
-    dateCreated: item.dateCreated, 
-    itemCategory: item.itemCategory, 
-    recipientState: item.recipientState, 
-
-  }
-
-    return item;
-  });
-
-  let isFunded = await Request.find({ isFunded: true });
-
-  isFunded = isFunded.map((item) => {
-    item = {
-    
-      _id: item._id,
-      itemName: item.itemName,
-      itemPrice: item.itemPrice,
-      donationDescription: item.donationDescription,
-      isFunded: item.isFunded,
-      recipientName: item.recipientName,
-      recipientUSLocation: item.recipientUSLocation,
-      dateCreated: item.dateCreated, 
-      itemCategory: item.itemCategory, 
-      recipientState: item.recipientState, 
-  
-    }
-  
       return item;
     });
 
-  //categories filter
-  let itemCategories = notFunded.map((item) => {
-    return item.itemCategory;
-  });
+    let isFunded = await Request.find({ isFunded: true });
 
-  let itemCategorySet = new Set(itemCategories);
+    isFunded = isFunded.map((item) => {
+      item = {
+        _id: item._id,
+        itemName: item.itemName,
+        itemPrice: item.itemPrice,
+        donationDescription: item.donationDescription,
+        isFunded: item.isFunded,
+        recipientName: item.recipientName,
+        recipientUSLocation: item.recipientUSLocation,
+        dateCreated: item.dateCreated,
+        itemCategory: item.itemCategory,
+        recipientState: item.recipientState,
+      };
 
-  itemCategories = [...itemCategorySet];
+      return item;
+    });
 
-  //dropping null from category search
-  itemCategories = itemCategories.filter((item) => item !== null);
+    //categories filter
+    let itemCategories = notFunded.map((item) => {
+      return item.itemCategory;
+    });
 
-  //recipient's state filter
-  let recipientStates = notFunded.map((item) => {
-    return item.recipientState;
-  });
+    let itemCategorySet = new Set(itemCategories);
 
-  let recipientStatesSet = new Set(recipientStates);
+    itemCategories = [...itemCategorySet];
 
-  recipientStates = [...recipientStatesSet];
+    //dropping null from category search
+    itemCategories = itemCategories.filter((item) => item !== null);
 
-  //dropping null from state search
-  recipientStates = recipientStates.filter((item) => item !== null);
+    //recipient's state filter
+    let recipientStates = notFunded.map((item) => {
+      return item.recipientState;
+    });
 
-  let fundedArray = [notFunded, isFunded];
+    let recipientStatesSet = new Set(recipientStates);
 
-  response.json([fundedArray, itemCategories, recipientStates]);
+    recipientStates = [...recipientStatesSet];
+
+    //dropping null from state search
+    recipientStates = recipientStates.filter((item) => item !== null);
+
+    let fundedArray = [notFunded, isFunded];
+
+    response.json([fundedArray, itemCategories, recipientStates]);
+  } catch (error) {
+    return response.status(404).send("Request not found");
+  }
 });
 
 //successful payment - changes isFunded value
 app.post("/donation-cart", async (request, response) => {
-  let itemsToChange = request.body;
+  try {
+    let itemsToChange = request.body;
 
-  let changedItems = [];
+    let changedItems = [];
 
-  for (let i = 0; i < itemsToChange.length; i++) {
-    changedItems = await Request.findByIdAndUpdate(itemsToChange[i]._id, {
-      isFunded: true,
-    });
+    for (let i = 0; i < itemsToChange.length; i++) {
+      changedItems = await Request.findByIdAndUpdate(itemsToChange[i]._id, {
+        isFunded: true,
+      });
+    }
+
+    response.send(changedItems);
+  } catch (error) {
+    return response.status(404).send("Request not found");
   }
-
-  response.send(changedItems);
 });
 
 app.listen(port, host, () => {
