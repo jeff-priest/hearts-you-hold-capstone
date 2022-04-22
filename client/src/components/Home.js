@@ -24,6 +24,9 @@ export default function Home({
   const [itemCategory, setItemCategory] = useState("all");
   const [itemRecipientsState, setItemRecipientsState] = useState("all");
   const [pageNumber, setPageNumber] = useState(0);
+  const [formData, setFormData] = useState([]); 
+
+  console.log(formData);
 
   let totalFunded = isFunded.length;
 
@@ -48,6 +51,7 @@ export default function Home({
 
   return (
     <>
+    {/* <ContactForm /> */}
       <ScrollToTop />
       <div className="body">
         <div className="heroContainer">
@@ -119,9 +123,10 @@ export default function Home({
             totalDonation={totalDonation}
             setTotalDonation={setTotalDonation}
             setPayPalOpen={setPayPalOpen}
-          />
+            setFormData={setFormData}
+          /> 
         )}
-
+  
         {payPalOpen && (
           <>
             <div id="paypal">
@@ -130,6 +135,7 @@ export default function Home({
                 notFunded={notFunded}
                 setSuccessfulPayment={setSuccessfulPayment}
                 setShowShoppingCartButton={setShowShoppingCartButton}
+                formData={formData}
               />
             </div>
           </>
