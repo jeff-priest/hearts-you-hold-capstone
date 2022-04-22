@@ -8,7 +8,7 @@
 
 .categorySearchHeader {
   font-size: 1.6rem;
-  margin: .8rem;
+  margin: 0.8rem;
 }
 
 .categorySearch {
@@ -17,7 +17,7 @@
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  margin: 0rem 1.6rem  .8rem 1.6rem ;
+  margin: 0rem 1.6rem 0.8rem 1.6rem;
   text-align: center;
   width: 80%;
 }
@@ -28,19 +28,17 @@
   border-radius: 0.4rem;
   box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
   text-align: center;
-  padding: .2rem;
+  padding: 0.2rem;
   width: 80%;
 }
 
 @media screen and (min-width: 640px) {
+  .searchSectionContainer {
+    flex-direction: row;
+  }
 
-.searchSectionContainer {
-  flex-direction: row;
-}
-
-.categorySearch {
-  width: 30%;
-  margin: .8rem 0 .8rem 0;
-}
-
+  .categorySearch {
+    width: 30%;
+    margin: 0.8rem 0 0.8rem 0;
+  }
 }

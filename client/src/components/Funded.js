@@ -5,10 +5,7 @@ import ScrollToTop from "./ScrollToTop";
 import "./styles/pagination.css";
 import "./styles/home.css";
 
-export default function Funded(props) {
-  let isFunded = props.isFunded;
-  let setIsFunded = props.setIsFunded;
-
+export default function Funded({ notFunded, isFunded, setIsFunded }) {
   function openReadMore(event, id) {
     let clickedItem = isFunded.map((item) => {
       if (item._id === id) {
@@ -183,7 +180,7 @@ export default function Funded(props) {
 
           <section className="totalFunded">
             <div>
-              {`View Our ${props.notFunded.length} `}
+              {`View Our ${notFunded.length} `}
               <Link className="fundedLink" to="/">
                 Requests!
               </Link>

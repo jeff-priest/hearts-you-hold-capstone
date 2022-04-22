@@ -3,36 +3,29 @@ import { HashLink as Link } from "react-router-hash-link";
 import ShoppingCart from "./ShoppingCart.js";
 import NotFundedPagination from "./NotFundedPagination.js";
 import PayPal from "./PayPal.js";
-import Mail from "./MailChimpAPI.js";
 import SearchBars from "./SearchBars.js";
 import ScrollToTop from "./ScrollToTop.js";
 import "./styles/home.css";
 import Hearts from "./assets/hearts.png";
 
-export default function Home(props) {
+export default function Home({
+  itemCategoriesList,
+  isFunded,
+  notFunded,
+  setNotFunded,
+  recipientStatesList,
+  setSuccessfulPayment,
+  displayError,
+}) {
   const [shoppingCartIsOpen, setShoppingCartIsOpen] = useState(false);
   const [showShoppingCartButton, setShowShoppingCartButton] = useState(false);
   const [totalDonation, setTotalDonation] = useState(0);
   const [payPalOpen, setPayPalOpen] = useState(false);
   const [itemCategory, setItemCategory] = useState("all");
-  const [itemRecipientsState, setItemRecipientsState] = useState("all")
+  const [itemRecipientsState, setItemRecipientsState] = useState("all");
   const [pageNumber, setPageNumber] = useState(0);
 
-  let itemCategoriesList = props.itemCategoriesList;
-
-  let isFunded = props.isFunded;
-
-  let setIsFunded = props.setIsFunded;
-
   let totalFunded = isFunded.length;
-
-  let notFunded = props.notFunded;
-
-  let setNotFunded = props.setNotFunded;
-
-  let recipientStatesList = props.recipientStatesList
-
-  let setSuccessfulPayment = props.setSuccessfulPayment
 
   let openShoppingCart = () => {
     setShoppingCartIsOpen(true);
@@ -94,16 +87,21 @@ export default function Home(props) {
           <SearchBars
             itemCategoriesList={itemCategoriesList}
             setItemCategory={setItemCategory}
-            notFunded={notFunded}
-            pageNumber={pageNumber}
             setPageNumber={setPageNumber}
             recipientStatesList={recipientStatesList}
             setItemRecipientsState={setItemRecipientsState}
           />
-
+          {displayError && (
+            <>
+              <p className="donationCard noListing">
+                We're sorry, but we can't seem to find our requested items!
+                Check back soon!
+              </p>
+            </>
+          )}
           <NotFundedPagination
-            notFunded={props.notFunded}
-            setNotFunded={props.setNotFunded}
+            notFunded={notFunded}
+            setNotFunded={setNotFunded}
             setShowShoppingCartButton={setShowShoppingCartButton}
             itemCategory={itemCategory}
             pageNumber={pageNumber}
@@ -114,8 +112,8 @@ export default function Home(props) {
 
         {shoppingCartIsOpen && (
           <ShoppingCart
-            notFunded={props.notFunded}
-            setNotFunded={props.setNotFunded}
+            notFunded={notFunded}
+            setNotFunded={setNotFunded}
             setShowShoppingCartButton={setShowShoppingCartButton}
             setShoppingCartIsOpen={setShoppingCartIsOpen}
             totalDonation={totalDonation}
@@ -130,9 +128,6 @@ export default function Home(props) {
               <PayPal
                 totalDonation={totalDonation}
                 notFunded={notFunded}
-                setNotFunded={setNotFunded}
-                setIsFunded={setIsFunded}
-                isFunded={isFunded}
                 setSuccessfulPayment={setSuccessfulPayment}
                 setShowShoppingCartButton={setShowShoppingCartButton}
               />
