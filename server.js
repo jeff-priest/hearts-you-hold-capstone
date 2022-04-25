@@ -35,42 +35,6 @@ contactEmail.verify((error) => {
   }
 });
 
-router.post("/contact", (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const message = req.body.message; 
-  // const DonationAmount = ;
-  // const hearAboutUs = ;
-  // const addToEmail = ;
-  // const listYourName = ;
-  // const blurb = ;
-
-  const mail = {
-    from: name,
-    to: "ryangwork22@gmail.com",
-    subject: "Contact Form Submission",
-    html: `<p>Name: ${name}</p>
-           <p>Email: ${email}</p>
-           <p>Message: ${message}</p>
-           <p>DonationAmount: </p>
-           <p>How did you hear about us?: </p>
-           <p>Would you like to be added to the mailing list?: </p>
-           <p>Can we list your name on the website?: </p>
-           <p>Would you be willing to post a blurb?: </p>
-           `
-
-};
-
-  contactEmail.sendMail(mail, (error) => {
-    if (error) {
-      res.json({ status: "ERROR" });
-    } else {
-      res.json({ status: "Message Sent" });
-    }
-  });
-});
-
-
 //bringing in schema
 const requestSchema = require("./data.js");
 
@@ -153,7 +117,39 @@ app.get("/", async (request, response) => {
 
 //successful payment - changes isFunded value
 app.post("/donation-cart", async (request, response) => {
+
   try {
+    const name = `${request.body[1].firstName}` + ` ${request.body[1].lastName}` ;
+    const email = request.body[1].email;
+    const hearAboutUs = request.body[1].hearAboutUs
+    const addToEmail = request.body[1].addToEmail;
+    const listYourName = request.body[1].listYourName
+    const blurb = request.body[1].blurb
+    const donationTotal = request.body[2]
+  
+    const mail = {
+      from: name,
+      to: process.env.nodeEmail,
+      subject: "Contact Form Submission",
+      html: `<p>Name: ${name}</p>
+             <p>Email: ${email}</p>
+             <p>DonationAmount: ${donationTotal}</p>
+             <p>How did you hear about us?: ${hearAboutUs}</p>
+             <p>Would you like to be added to the mailing list?: ${addToEmail}</p>
+             <p>Can we list your name on the website?: ${listYourName} </p>
+             <p>Would you be willing to post a blurb?: ${blurb} </p>
+            `
+    };
+  
+    contactEmail.sendMail(mail, (error) => {
+      if (error) {
+        res.json({ status: "ERROR" });
+      } else {
+        res.json({ status: "Message Sent" });
+      }
+    });
+
+
     let itemsToChange = request.body[0];
 
     let changedItems = [];
