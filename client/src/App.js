@@ -33,8 +33,14 @@ export default function App() {
 
         let fundedVariable = response[1];
 
+        notFundedVariable = notFundedVariable.reverse()
+
+        fundedVariable = fundedVariable.reverse()
+
         fundedVariable = fundedVariable.map((fundedObject, index) => {
           let donationItemPrice = fundedObject.itemPrice;
+
+          donationItemPrice = donationItemPrice * 0.15 + donationItemPrice;
 
           donationItemPrice = Math.ceil(donationItemPrice);
 
@@ -80,7 +86,7 @@ export default function App() {
     return () => {
       isConnectedToServer = false;
     };
-  }, [, successfulPayment]);
+  }, [successfulPayment]);
 
   return (
     <>

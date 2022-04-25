@@ -154,7 +154,7 @@ app.get("/", async (request, response) => {
 //successful payment - changes isFunded value
 app.post("/donation-cart", async (request, response) => {
   try {
-    let itemsToChange = request.body;
+    let itemsToChange = request.body[0];
 
     let changedItems = [];
 

@@ -14,7 +14,7 @@
   font-family: "Nunito", sans-serif;
   background: #f6f9fc;
   color: #333;
-  animation: 0.3s ease-in pageLoad;
+  animation: 0.8s ease-in pageLoad;
 }
 
 /* donation card for requested items */

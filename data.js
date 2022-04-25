@@ -1,8 +1,9 @@
 //----BOILER PLATE -- CONNECTING TO MONGO DATABASE ---//
 
 const mongoose = require("mongoose");
+const { MONGO_URI } = process.env;
 
-mongoose.connect("mongodb://localhost:27017/dummyHYH", {
+mongoose.connect("mongodb+srv://HeartsYouHoldAdmin:HYH2022!@heartyouhold.kcgwz.mongodb.net/hyhDatabase?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

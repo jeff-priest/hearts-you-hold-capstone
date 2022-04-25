@@ -7,11 +7,12 @@ export default function PayPal({
   setSuccessfulPayment,
   setShowShoppingCartButton,
   totalDonation,
-  formData
+  formData,
+  setPayPalOpen,
 }) {
   const amount = totalDonation;
 
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(false);
   const [payPalDisplayError, setPayPalDisplayError] = useState(false);
 
   async function postData() {
@@ -37,7 +38,6 @@ export default function PayPal({
     });
     response = await response.json();
 
-    setSuccessfulPayment(true);
     setShowShoppingCartButton(false);
   }
 
@@ -64,8 +64,14 @@ export default function PayPal({
   const onApprove = (data, actions) => {
     return actions.order.capture().then(function (details) {
       const { payer } = details;
-      setSuccessMessage("Successful Purchase");
+      setSuccessMessage(true);
       postData();
+
+      setTimeout(() => {
+        setSuccessfulPayment(true);
+        setPayPalOpen(false);
+      return <>{window.scrollTo(0, 0)}</>;
+      }, 4000);
     });
   };
   //capture errors if one occurs
@@ -73,28 +79,21 @@ export default function PayPal({
     setPayPalDisplayError(true);
   };
 
-  return (
+  let checkout = (
     <>
-      <h1>CHECK OUT</h1>
-
-      {payPalDisplayError && (
-        <>
-          <p className="donationCard noListing">
-            We're sorry. Something went wrong while processing your payment.
-            Please try again!
-          </p>
-        </>
-      )}
-
-      <div className="checkoutPaypal">
-        <div id="item-0">
+      <div className="checkoutContainer">
+        <h1 className="checkoutHeader">Check Out</h1>
+        <div className="checkoutTotalContainer">
+          <h1 className="checkoutTotal">{`Donation Total: $${amount}`}</h1>
+        </div>
+        <div className="paypalButtonsContainer">
           <PayPalScriptProvider
             options={{
               "client-id":
                 "AQJHk5efwAZ2kYrEqyKsolzaTwG3-SeSrujK207ZFhnMFQAekd_6lWW6KNGgpLEYU1dhQqYerRONEKRg",
             }}
           >
-            <div>{successMessage}</div>
+            <div className="payPalButton">
             <PayPalButtons
               style={{ layout: "vertical" }}
               fundingSource="paypal"
@@ -102,7 +101,8 @@ export default function PayPal({
               onApprove={onApprove}
               onError={onError}
             />
-            ,
+            </div>
+            <div className="payPalButton">
             <PayPalButtons
               style={{ layout: "vertical" }}
               fundingSource="card"
@@ -110,13 +110,37 @@ export default function PayPal({
               onApprove={onApprove}
               onError={onError}
             />
+            </div>
           </PayPalScriptProvider>
         </div>
+      </div>
+    </>
+  );
 
-        <div id="item-1">
-          <h1>Checkout amount</h1>
-          <h3>$ {amount}</h3>
-        </div>
+  let complete = (
+    <>
+      <div className="donationCard noListing textCenter">
+        <h1 className="checkoutTotal">Thank you for your donation!</h1>
+      </div>
+    </>
+  );
+
+  return (
+    <>
+      <div className="checkout">
+        {payPalDisplayError && (
+          <>
+            <p className="donationCard noListing textCenter">
+              We're sorry.
+              <br />
+              Something went wrong while processing your payment.
+              <br />
+              Please try again!
+            </p>
+          </>
+        )}
+
+        {successMessage ? complete : checkout}
       </div>
     </>
   );
