@@ -118,7 +118,32 @@ app.get("/", async (request, response) => {
 //successful payment - changes isFunded value
 app.post("/donation-cart", async (request, response) => {
 
+  // console.log(request.body[1], request.body[0]);
+
+  let purchasedItems = request.body[0]
+
+      purchasedItems = purchasedItems.map((item)=> { 
+
+      let id = item._id; 
+      id = id.slice(17); 
+
+      let itemPrice = item.itemPrice;
+      let itemName = item.itemName
+
+      item = `<br></br>Item Name: ${itemName}<br></br>Item Price: ${itemPrice}<br></br>Item ID: ${id}<br></br> `
+
+      console.log(item);
+
+      return item
+
+    }); 
+
+
+    console.log(purchasedItems);
+
+
   try {
+
     const name = `${request.body[1].firstName}` + ` ${request.body[1].lastName}` ;
     const email = request.body[1].email;
     const hearAboutUs = request.body[1].hearAboutUs
@@ -138,6 +163,7 @@ app.post("/donation-cart", async (request, response) => {
              <p>Would you like to be added to the mailing list?: ${addToEmail}</p>
              <p>Can we list your name on the website?: ${listYourName} </p>
              <p>Would you be willing to post a blurb?: ${blurb} </p>
+             <p>Purchased Items:<br></br>${purchasedItems}</p>
             `
     };
   

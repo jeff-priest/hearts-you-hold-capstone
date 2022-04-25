@@ -1,9 +1,9 @@
 //----BOILER PLATE -- CONNECTING TO MONGO DATABASE ---//
-
+require("dotenv").config();
 const mongoose = require("mongoose");
 const { MONGO_URI } = process.env;
 
-mongoose.connect("mongodb+srv://HeartsYouHoldAdmin:HYH2022!@heartyouhold.kcgwz.mongodb.net/hyhDatabase?retryWrites=true&w=majority", {
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

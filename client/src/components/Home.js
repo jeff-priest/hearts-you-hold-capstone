@@ -26,8 +26,6 @@ export default function Home({
   const [pageNumber, setPageNumber] = useState(0);
   const [formData, setFormData] = useState([]); 
 
-  console.log(formData);
-
   let totalFunded = isFunded.length;
 
   let openShoppingCart = () => {
