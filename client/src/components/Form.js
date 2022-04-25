@@ -101,11 +101,6 @@ function Form({setFormData, payPal}) {
         </label>
         <br />
         <label className="checkBox" htmlFor="checkadBoxAnswers">
-          <input className="input" id="donorParty" value="donorParty" type="checkbox" onChange={(e)=> setHearAboutUs(e.target.value)} />
-          Donor Party
-        </label>
-        <br />
-        <label className="checkBox" htmlFor="checkadBoxAnswers">
           <input className="input" id="friend" value="friend" type="checkbox" onChange={(e)=> setHearAboutUs(e.target.value)} />
           Friend
         </label>
