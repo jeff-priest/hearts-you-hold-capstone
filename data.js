@@ -24,6 +24,7 @@ const requestSchema = new mongoose.Schema({
   itemCategory: String,
   recipientState: String,
   comments: String,
+  published: Boolean
 });
 
 module.exports = requestSchema;

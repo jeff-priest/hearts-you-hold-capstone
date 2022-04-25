@@ -294,7 +294,7 @@ export default function NotFundedPagination({
         onPageChange={changePage}
         pageClassName={"paginationPages"}
         containerClassName={"paginationButtonsContainer"}
-        previousClassName={"previousButton"}
+        previousLinkClassName={"previousButton"}
         nextLinkClassName={"nextButton"}
         activeClassName={"paginationActiveButton"}
         forcePage={pageNumber}

@@ -196,7 +196,7 @@ export default function Funded({ notFunded, isFunded, setIsFunded }) {
           onPageChange={changePage}
           pageClassName={"paginationPages"}
           containerClassName={"paginationButtonsContainer"}
-          previousClassName={"previousButton"}
+          previousLinkClassName={"previousButton"}
           nextLinkClassName={"nextButton"}
           activeClassName={"paginationActiveButton"}
           pageRangeDisplayed={3}
