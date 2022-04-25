@@ -11,9 +11,30 @@ export default function PayPal({
   setPayPalOpen,
 }) {
   const amount = totalDonation;
+  let purchasedItemsDisplay = []
 
   const [successMessage, setSuccessMessage] = useState(false);
   const [payPalDisplayError, setPayPalDisplayError] = useState(false);
+
+ 
+
+  // console.log(purchasedItems);
+
+
+  // purchasedItemsDisplay = purchasedItems.map((purchasedItem, index) => {
+  //   return <li key={`donationItemCard-${index}`}>
+  //         <div className="donationCard">
+  //           {/* contents for left side of item card*/}
+  //           <section className="cardNameDescription">
+  //             <h2 className="cardName">{purchasedItem.itemName}</h2>
+  //             </section>
+  //             </div>
+  //             </li>
+
+  // })
+
+  // console.log(purchasedItemsDisplay);
+
 
   async function postData() {
     setPayPalDisplayError(false);
@@ -22,7 +43,7 @@ export default function PayPal({
     let purchasedItems = notFunded.filter((item) => {
       return item.inShoppingCart === true;
     });
-
+  
     purchasedItems = purchasedItems.map((purchasedItem) => {
       return {
         ...purchasedItem,
@@ -30,6 +51,8 @@ export default function PayPal({
         isFunded: true,
       };
     });
+
+
 
     let response = await fetch(`http://localhost:8003/donation-cart`, {
       method: "POST",
@@ -86,6 +109,7 @@ export default function PayPal({
         <div className="checkoutTotalContainer">
           <h1 className="checkoutTotal">{`Donation Total: $${amount}`}</h1>
         </div>
+        {purchasedItemsDisplay}
         <div className="paypalButtonsContainer">
           <PayPalScriptProvider
             options={{
