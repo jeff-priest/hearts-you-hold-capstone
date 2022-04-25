@@ -1,0 +1,81 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #ffffff;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  background: #ffffff;
+  padding: 0 0.8rem 0 0.8rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
+  margin-bottom: 1.6rem;
+}
+
+.fillOut {
+  width: 80%;
+  text-align: center;
+}
+
+.textBoxes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3rem;
+  width: 80%;
+  max-width: 30rem;
+  margin-bottom: .8rem;
+}
+
+.formQuestionsContainer {
+  /* border: 2px solid yellow; */
+  max-width: 30rem;
+
+  width: 80%;
+}
+
+.formQuestions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.inputText {
+  font-size: 0.8rem;
+  padding: 0.6rem;
+  width: 100%;
+}
+
+.checkBox {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  margin: 0;
+}
+
+.input {
+  margin-right: 0.4rem;
+}
+
+.proceedToCheckout {
+    text-decoration: none;
+  
+    background: #cc6072;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 0.3rem;
+    border: none;
+    cursor: pointer;
+    margin: 1.6rem 0 2.4rem 0; 
+  }

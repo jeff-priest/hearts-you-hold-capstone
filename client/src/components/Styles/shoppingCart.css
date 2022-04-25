@@ -13,7 +13,7 @@
   flex-direction: column;
   background: #ffffff;
   width: 100%;
-  margin: 1.6rem auto 1.6rem auto;
+  margin: 1.6rem auto 0 auto;
   animation: 0.3s ease-in pageLoad;
 }
 
@@ -31,6 +31,7 @@
   width: 80%;
   background: #ffffff;
   margin: 1.6rem auto 1.6rem auto;
+  padding: 0 .8rem 0 .8rem;
   border-radius: 0.3rem;
   box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);
 }
@@ -75,10 +76,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 75%;
+  width: 80%;
   padding: 1.2rem 0 1.2rem 0;
   font-size: 1.6rem;
-
+  max-width: 30rem;
   background: #cc6072;
   color: #ffffff;
   border-radius: 0.3rem;

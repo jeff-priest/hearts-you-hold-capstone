@@ -157,6 +157,7 @@ export default function Funded({ notFunded, isFunded, setIsFunded }) {
   //selected is the number for the page we want to move to, built in paginate
   let changePage = ({ selected }) => {
     setPageNumber(selected);
+    return <>{window.scrollTo(0, 0)}</>
   };
 
   return (

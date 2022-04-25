@@ -1,17 +1,4 @@
-@keyframes pageLoad {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-
 /* hero section */
-
-.body {
-  animation: 0.3s ease-in pageLoad;
-}
 
 .heroContainer {
   background: #ffffff;

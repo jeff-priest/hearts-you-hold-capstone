@@ -97,7 +97,7 @@ export default function Home({
           />
           {displayError && (
             <>
-              <p className="donationCard noListing">
+              <p className="donationCard noListing textCenter">
                 We're sorry, but we can't seem to find our requested items!
                 Check back soon!
               </p>
@@ -136,6 +136,7 @@ export default function Home({
                 setSuccessfulPayment={setSuccessfulPayment}
                 setShowShoppingCartButton={setShowShoppingCartButton}
                 formData={formData}
+                setPayPalOpen={setPayPalOpen}
               />
             </div>
           </>
