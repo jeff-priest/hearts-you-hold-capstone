@@ -147,12 +147,12 @@ function Form({setFormData, payPal}) {
           very successful way to bring in <br /> new donors!
         </h3>
         <label className="checkBox" htmlFor="checkBoxAnswers">
-          <input className="input" id="No thank you, not at this time" value="No thank you, not at this time" type="checkbox" onChange={(e)=> setBlurb(e.target.value)} />
+          <input className="input" id="No thank you, not at this time" value="Yes" type="checkbox" onChange={(e)=> setBlurb(e.target.value)} />
           Yes, I would be happy to help out in this way
         </label>
         <br />
         <label className="checkBox" htmlFor="checkBoxAnswers">
-          <input className="input" id="No thank you, not at this time" value="No thank you, not at this time" type="checkbox" onChange={(e)=> setBlurb(e.target.value)} />
+          <input className="input" id="No thank you, not at this time" value="No" type="checkbox" onChange={(e)=> setBlurb(e.target.value)} />
           No thank you, not at this time
         </label>
         <br />
