@@ -13,6 +13,7 @@ export default function App() {
   const [recipientStatesList, setRecipientStatesList] = useState([]);
   const [successfulPayment, setSuccessfulPayment] = useState(false);
   const [displayError, setDisplayError] = useState(false);
+  const [itemCategory, setItemCategory] = useState("all");
 
   useEffect(() => {
     let isConnectedToServer = true;
@@ -103,6 +104,8 @@ export default function App() {
                 itemCategoriesList={itemCategoriesList}
                 recipientStatesList={recipientStatesList}
                 setSuccessfulPayment={setSuccessfulPayment}
+                itemCategory={itemCategory}
+                setItemCategory={setItemCategory}
               />
             }
           />
